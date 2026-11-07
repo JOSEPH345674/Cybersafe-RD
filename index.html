@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Política de seguridad de contenido (CSP): solo se permite cargar
+       scripts y estilos del propio sitio. Bloquea scripts inyectados y
+       conexiones a otros dominios. Si más adelante agregas fuentes, imágenes
+       o servicios externos, hay que permitirlos aquí de forma explícita. -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none';">
+  <title>CyberSafe RD | Educación y protección digital</title>
+  <meta name="description" content="CyberSafe RD es una plataforma dominicana de educación y protección digital para estudiantes y pequeños negocios.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============ BARRA DE NAVEGACIÓN ============ -->
+  <header class="site-header">
+    <nav class="navbar" aria-label="Navegación principal">
+      <a class="brand" href="#inicio" aria-label="CyberSafe RD, ir al inicio">
+        <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3Z" fill="currentColor"/>
+        </svg>
+        <span>CyberSafe <strong>RD</strong></span>
+      </a>
+
+      <!-- Botón de menú (solo visible en móvil) -->
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu-principal">
+        <span class="visually-hidden">Abrir o cerrar el menú</span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+
+      <ul class="nav-links" id="menu-principal">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#estudiantes">Estudiantes</a></li>
+        <li><a href="#negocios">Negocios</a></li>
+        <li><a href="#academy">Academy</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ============ SECCIÓN PRINCIPAL ============ -->
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <h1>
+            Navega con seguridad.
+            <span class="hero-accent">Protege lo que te importa.</span>
+          </h1>
+          <p class="hero-description">
+            CyberSafe RD es una plataforma dominicana de educación y protección digital
+            para estudiantes y pequeños negocios. Aprende a cuidar tus cuentas,
+            tus datos y tu actividad en internet.
+          </p>
+          <a class="btn btn-primary" href="#estudiantes">Comenzar a aprender</a>
+        </div>
+
+        <!-- Ilustración decorativa: escudo con candado -->
+        <div class="hero-visual" aria-hidden="true">
+          <svg viewBox="0 0 220 220" role="img" focusable="false">
+            <defs>
+              <linearGradient id="shield-fill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#1677C8"/>
+                <stop offset="1" stop-color="#0E4E8A"/>
+              </linearGradient>
+            </defs>
+            <circle cx="110" cy="110" r="104" fill="none" stroke="#28B9E8" stroke-opacity=".18"/>
+            <circle cx="110" cy="110" r="82" fill="none" stroke="#28B9E8" stroke-opacity=".3"/>
+            <path d="M110 24 172 48v52c0 40-26 68-62 84-36-16-62-44-62-84V48l62-24Z"
+                  fill="url(#shield-fill)" stroke="#28B9E8" stroke-width="3" stroke-linejoin="round"/>
+            <path d="M92 98V88a18 18 0 0 1 36 0v10" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
+            <rect x="82" y="98" width="56" height="44" rx="8" fill="#FFFFFF"/>
+            <circle cx="110" cy="116" r="6" fill="#1677C8"/>
+            <rect x="107.5" y="119" width="5" height="12" rx="2.5" fill="#1677C8"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECCIONES BASE (contenido en desarrollo) ============ -->
+    <section class="section" id="estudiantes">
+      <div class="container">
+        <div class="glass-card">
+          <h2>Estudiantes</h2>
+          <p>Esta sección tendrá recursos para que los estudiantes cuiden su vida digital. Está en desarrollo.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="negocios">
+      <div class="container">
+        <div class="glass-card">
+          <h2>Negocios</h2>
+          <p>Esta sección tendrá orientación de protección digital para pequeños negocios. Está en desarrollo.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="academy">
+      <div class="container">
+        <div class="glass-card">
+          <h2>Academy</h2>
+          <p>Esta sección tendrá los materiales de formación de CyberSafe RD. Está en desarrollo.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="anio-actual">2026</span> CyberSafe RD. Educación y protección digital.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

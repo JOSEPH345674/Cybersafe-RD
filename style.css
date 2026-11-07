@@ -1,0 +1,465 @@
+/* ==========================================================
+   CyberSafe RD - Hoja de estilos (versión 2: glassmorphism y degradados)
+   Organización:
+   1. Variables y base
+   2. Barra de navegación
+   3. Botones
+   4. Sección principal (hero)
+   5. Secciones base y pie de página
+   6. Adaptable a computadora (pantallas anchas)
+   7. Alternativas si el navegador no soporta cristal
+   Los colores y efectos de cristal se ajustan en las variables de :root.
+   ========================================================== */
+
+/* ---------- 1. Variables y base ---------- */
+:root {
+  --color-fondo: #101F36;
+  --color-fondo-alt: #0C1829;   /* variación más oscura del fondo */
+  --color-principal: #1677C8;
+  --color-detalle: #28B9E8;
+  --color-texto: #FFFFFF;
+  --color-texto-suave: #C9D6E6;
+  --color-borde: rgba(40, 185, 232, 0.25);
+
+  /* ---- Efectos de cristal (glassmorphism): cambia estos valores para ajustar el estilo ---- */
+  --vidrio-fondo: linear-gradient(135deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.03));
+  --vidrio-borde: rgba(255, 255, 255, 0.16);   /* borde semitransparente */
+  --vidrio-desenfoque: 16px;                   /* intensidad del desenfoque */
+  --vidrio-sombra: 0 12px 40px rgba(2, 10, 24, 0.35);
+  --vidrio-brillo: inset 0 1px 0 rgba(255, 255, 255, 0.18); /* línea de luz superior */
+  --radio-tarjeta: 22px;
+
+  /* ---- Degradados y brillos ---- */
+  --degradado-boton: linear-gradient(135deg, #0E4E8A 0%, #1677C8 50%, #0E4E8A 100%);
+  --degradado-texto: linear-gradient(90deg, #28B9E8, #8EE0F8);
+  --brillo-celeste: rgba(40, 185, 232, 0.45);
+
+  --fuente: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --ancho-max: 1120px;
+  --altura-header: 68px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--altura-header); /* evita que la barra tape los títulos */
+}
+
+body {
+  margin: 0;
+  font-family: var(--fuente);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-texto);
+  background-color: var(--color-fondo);
+}
+
+/* Fondo fijo con degradados: el cristal necesita algo de color detrás para verse */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(42rem 42rem at 88% -8%, rgba(40, 185, 232, 0.26), transparent 62%),
+    radial-gradient(46rem 46rem at -12% 38%, rgba(22, 119, 200, 0.34), transparent 62%),
+    radial-gradient(40rem 40rem at 95% 100%, rgba(22, 119, 200, 0.26), transparent 62%),
+    linear-gradient(180deg, #0B1626 0%, #101F36 50%, #0D2A4A 100%);
+}
+
+h1, h2 {
+  line-height: 1.15;
+  margin: 0 0 1rem;
+}
+
+p {
+  margin: 0 0 1.5rem;
+  color: var(--color-texto-suave);
+}
+
+a {
+  color: inherit;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--ancho-max);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* Texto solo para lectores de pantalla */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Foco visible para quien navega con teclado */
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--color-detalle);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ---------- 2. Barra de navegación ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(16, 31, 54, 0.55);
+  -webkit-backdrop-filter: blur(var(--vidrio-desenfoque)) saturate(140%);
+  backdrop-filter: blur(var(--vidrio-desenfoque)) saturate(140%);
+  border-bottom: 1px solid var(--vidrio-borde);
+  box-shadow: 0 4px 24px rgba(2, 10, 24, 0.25);
+}
+
+.navbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--ancho-max);
+  height: var(--altura-header);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.2rem;
+  text-decoration: none;
+}
+
+.brand strong {
+  color: var(--color-detalle);
+}
+
+.brand-icon {
+  width: 28px;
+  height: 28px;
+  color: var(--color-principal);
+  filter: drop-shadow(0 0 8px var(--brillo-celeste));
+}
+
+/* Enlaces del menú (versión móvil: panel desplegable) */
+.nav-links {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 1.25rem 1rem;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(12, 24, 41, 0.97);
+  border-bottom: 1px solid var(--vidrio-borde);
+  box-shadow: 0 16px 32px rgba(2, 10, 24, 0.35);
+}
+
+/* Si JavaScript está activo, el menú móvil empieza cerrado */
+.js .nav-links {
+  display: none;
+}
+
+.js .nav-links.is-open {
+  display: block;
+}
+
+.nav-links a {
+  display: block;
+  padding: 0.85rem 0;
+  text-decoration: none;
+  color: var(--color-texto-suave);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.nav-links a:hover,
+.nav-links a.is-active {
+  color: var(--color-texto);
+}
+
+.nav-links a.is-active {
+  color: var(--color-detalle);
+}
+
+/* Botón de hamburguesa */
+.nav-toggle {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 0 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--vidrio-borde);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.nav-toggle-bar {
+  display: block;
+  height: 2px;
+  background-color: var(--color-texto);
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* La hamburguesa se transforma en "X" cuando el menú está abierto */
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-of-type(2) {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-of-type(3) {
+  opacity: 0;
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-of-type(4) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ---------- 3. Botones ---------- */
+.btn {
+  display: inline-block;
+  padding: 0.9rem 1.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 12px;
+  transition: background-position 0.4s ease, transform 0.2s ease,
+              box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+/* Degradado azul con borde y brillo celeste. Los dos extremos mantienen buen contraste con el texto blanco */
+.btn-primary {
+  color: var(--color-texto);
+  background: var(--degradado-boton);
+  background-size: 200% 100%;
+  border: 1px solid rgba(40, 185, 232, 0.55);
+  box-shadow: 0 6px 20px rgba(22, 119, 200, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.btn-primary:hover {
+  background-position: 100% 0;            /* el degradado se desplaza */
+  border-color: var(--color-detalle);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px var(--brillo-celeste), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* ---------- Tarjetas de cristal (glassmorphism) ---------- */
+.glass-card,
+.hero-visual {
+  background: var(--vidrio-fondo);
+  border: 1px solid var(--vidrio-borde);
+  box-shadow: var(--vidrio-sombra), var(--vidrio-brillo);
+  -webkit-backdrop-filter: blur(var(--vidrio-desenfoque));
+  backdrop-filter: blur(var(--vidrio-desenfoque));
+}
+
+.glass-card {
+  padding: 1.75rem;
+  border-radius: var(--radio-tarjeta);
+}
+
+/* ---------- 4. Sección principal (hero) ---------- */
+.hero {
+  padding: 3rem 0 4rem;
+}
+
+.hero-grid {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.hero h1 {
+  font-size: clamp(2.1rem, 7vw, 3.6rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.hero-accent {
+  display: block;
+  color: var(--color-detalle);   /* color de respaldo */
+}
+
+/* Texto con degradado celeste (si el navegador lo soporta) */
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .hero-accent {
+    background: var(--degradado-texto);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+}
+
+.hero-description {
+  max-width: 34rem;
+  font-size: 1.1rem;
+}
+
+/* Panel de cristal que contiene el escudo, con un resplandor celeste detrás */
+.hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  padding: 1.75rem;
+  overflow: hidden;
+  border-radius: 28px;
+}
+
+.hero-visual::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, var(--brillo-celeste), transparent 65%);
+  filter: blur(24px);
+}
+
+.hero-visual svg {
+  position: relative;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 8px 24px rgba(40, 185, 232, 0.35));
+}
+
+/* ---------- 5. Secciones base y pie de página ---------- */
+.section {
+  padding: 4rem 0;
+}
+
+.section-alt {
+  background: linear-gradient(180deg, rgba(8, 16, 30, 0.45), rgba(8, 16, 30, 0.12));
+}
+
+.section h2 {
+  font-size: 1.8rem;
+}
+
+.section p {
+  max-width: 38rem;
+  margin-bottom: 0;
+}
+
+.site-footer {
+  padding: 1.5rem 0;
+  text-align: center;
+  background: rgba(8, 16, 30, 0.55);
+  -webkit-backdrop-filter: blur(var(--vidrio-desenfoque));
+  backdrop-filter: blur(var(--vidrio-desenfoque));
+  border-top: 1px solid var(--vidrio-borde);
+}
+
+.site-footer p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* ---------- 6. Pantallas anchas (computadora y tableta grande) ---------- */
+@media (min-width: 820px) {
+  /* El menú pasa a estar en línea en la barra */
+  .nav-toggle {
+    display: none;
+  }
+
+  .nav-links,
+  .js .nav-links {
+    display: flex;
+    position: static;
+    gap: 2rem;
+    padding: 0;
+    background: none;
+    border: 0;
+  }
+
+  .nav-links a {
+    padding: 0.4rem 0;
+    border-bottom: 2px solid transparent;
+  }
+
+  .nav-links a.is-active {
+    border-bottom-color: var(--color-detalle);
+  }
+
+  /* Hero en dos columnas: texto a la izquierda, escudo a la derecha */
+  .hero {
+    padding: 6rem 0;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1.2fr 1fr;
+  }
+
+  .section {
+    padding: 5rem 0;
+  }
+
+  .glass-card,
+  .hero-visual {
+    padding: 2.25rem;
+  }
+}
+
+/* Respeta a quienes prefieren menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    transition: none !important;
+  }
+}
+
+/* Móviles: desenfoque más suave para que el desplazamiento sea fluido */
+@media (max-width: 819px) {
+  :root {
+    --vidrio-desenfoque: 10px;
+  }
+}
+
+/* ---------- 7. Alternativas si el navegador no soporta cristal ---------- */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-header,
+  .glass-card,
+  .hero-visual,
+  .site-footer {
+    background: rgba(16, 31, 54, 0.94);
+  }
+}
+
+/* Si la persona pidió menos transparencias, usamos fondos sólidos */
+@media (prefers-reduced-transparency: reduce) {
+  .site-header,
+  .glass-card,
+  .hero-visual,
+  .site-footer {
+    background: #14284A;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
