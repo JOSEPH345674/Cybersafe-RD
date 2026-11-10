@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none';">
+  <title>MFA | CyberSafe Academy</title>
+  <meta name="description" content="La autenticación multifactor (MFA) añade una segunda barrera a tus cuentas: aunque alguien consiga tu contraseña, no podrá entrar solo con ella.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="navbar" aria-label="Navegación principal">
+      <a class="brand" href="../index.html#inicio" aria-label="CyberSafe RD, ir al inicio">
+        <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3Z" fill="currentColor"/>
+        </svg>
+        <span>CyberSafe <strong>RD</strong></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu-principal">
+        <span class="visually-hidden">Abrir o cerrar el menú</span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <ul class="nav-links" id="menu-principal"><li><a href="../index.html#inicio">Inicio</a></li><li><a href="../index.html#estudiantes">Estudiantes</a></li><li><a href="../index.html#negocios">Negocios</a></li><li><a href="../index.html#academy" aria-current="page">Academy</a></li></ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="lesson-hero">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Ruta de navegación">
+          <a href="../index.html#academy">Academy</a> <span aria-hidden="true">›</span> <span>MFA</span>
+        </nav>
+        <h1>MFA: verificación en varios pasos para proteger tus cuentas</h1>
+        <p class="lesson-intro">La autenticación multifactor (MFA) añade una segunda barrera a tus cuentas: aunque alguien consiga tu contraseña, no podrá entrar solo con ella.</p>
+        <ul class="lesson-meta" aria-label="Datos de la lección">
+          <li class="chip">Lección introductoria</li>
+          <li class="chip">Lectura: 6 min</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="container lesson-layout">
+      <nav class="lesson-toc glass-card" aria-label="Contenido de la lección">
+        <h2 class="toc-title">En esta lección</h2>
+        <ol><li><a href="#objetivos">Objetivos de aprendizaje</a></li><li><a href="#que-es">¿Qué es la MFA?</a></li><li><a href="#como-protege">¿Cómo te protege?</a></li><li><a href="#metodos">Métodos de MFA, de más a menos seguro</a></li><li><a href="#errores">Errores comunes</a></li><li><a href="#como-activar">Cómo activarla</a></li><li><a href="#recomendaciones">Recomendaciones prácticas</a></li><li><a href="#resumen">Resumen</a></li></ol>
+      </nav>
+      <article class="lesson-body"><section class="lesson-section" id="objetivos" aria-labelledby="objetivos-titulo"><h2 id="objetivos-titulo">Objetivos de aprendizaje</h2><p>Al terminar esta lección podrás:</p><ul class="objectives"><li>Explicar qué es la MFA y por qué protege tus cuentas.</li><li>Identificar los tipos de factores y los métodos más comunes.</li><li>Reconocer cuáles métodos son más seguros que otros.</li><li>Activar MFA en tus cuentas más importantes y evitar los errores comunes.</li></ul></section><section class="lesson-section" id="que-es" aria-labelledby="que-es-titulo"><h2 id="que-es-titulo">¿Qué es la MFA?</h2><p>MFA significa <em>multi-factor authentication</em> (autenticación multifactor). También se le llama verificación en dos pasos o 2FA. Consiste en pedir dos o más pruebas distintas de que eres tú. Los factores son de tres tipos:</p><ul><li><strong>Algo que sabes:</strong> una contraseña o un PIN.</li><li><strong>Algo que tienes:</strong> tu teléfono, una app autenticadora o una llave de seguridad.</li><li><strong>Algo que eres:</strong> tu huella digital o el reconocimiento facial.</li></ul><p>Con MFA, quien robe tu contraseña todavía necesita tu segundo factor para entrar.</p></section><section class="lesson-section" id="como-protege" aria-labelledby="como-protege-titulo"><h2 id="como-protege-titulo">¿Cómo te protege?</h2><p>Muchos robos de cuentas empiezan con una contraseña filtrada o robada mediante phishing. La MFA corta ese camino en muchos casos y reduce de forma importante el riesgo. No es infalible, pero es una de las medidas más efectivas que puedes activar.</p></section><section class="lesson-section" id="metodos" aria-labelledby="metodos-titulo"><h2 id="metodos-titulo">Métodos de MFA, de más a menos seguro</h2><ol><li><strong>Llaves de seguridad y passkeys.</strong> Dispositivos físicos o claves guardadas en tu teléfono o computadora que solo funcionan en el sitio legítimo. Resisten bien al phishing.</li><li><strong>Apps autenticadoras.</strong> Generan un código temporal que cambia cada pocos segundos, como Google Authenticator o Microsoft Authenticator.</li><li><strong>Notificaciones de aprobación.</strong> Tocas «Aprobar» en tu teléfono. Cuidado: aprueba solo lo que tú iniciaste.</li><li><strong>Código por SMS.</strong> Es mejor que nada, pero es el menos seguro: los mensajes pueden ser interceptados o el número puede ser duplicado (SIM swapping).</li></ol><div class="callout glass-card"><p><strong>Cualquier MFA es mejor que ninguna.</strong> Si solo puedes usar SMS, actívalo.</p></div></section><section class="lesson-section" id="errores" aria-labelledby="errores-titulo"><h2 id="errores-titulo">Errores comunes</h2><ul><li><strong>Compartir el código</strong> con quien te lo pide («soporte», «el banco»). Ningún servicio legítimo te lo solicitará.</li><li><strong>Aprobar notificaciones que no pediste.</strong> Si te llegan sin que hayas intentado entrar, recházalas y cambia tu contraseña.</li><li><strong>No guardar los códigos de recuperación.</strong> Sin ellos puedes perder el acceso si cambias de teléfono.</li><li><strong>Activarla solo en algunas cuentas</strong> y dejar fuera tu correo, que suele ser la puerta de entrada a todo lo demás.</li></ul></section><section class="lesson-section" id="como-activar" aria-labelledby="como-activar-titulo"><h2 id="como-activar-titulo">Cómo activarla</h2><ol class="steps"><li>Entra a la configuración de seguridad de tu cuenta desde la app o escribiendo tú mismo la dirección oficial.</li><li>Busca opciones como «Verificación en dos pasos», «Autenticación multifactor» o «2FA».</li><li>Elige el método. Si puedes, usa una app autenticadora o una llave o passkey.</li><li>Guarda los códigos de recuperación en un lugar seguro.</li><li>Prueba: cierra sesión y vuelve a entrar para comprobar que funciona.</li></ol><p><strong>Prioridad:</strong> empieza por tu correo, luego la banca o billeteras digitales, las redes sociales, el almacenamiento en la nube y tu gestor de contraseñas.</p></section><section class="lesson-section" id="recomendaciones" aria-labelledby="recomendaciones-titulo"><h2 id="recomendaciones-titulo">Recomendaciones prácticas</h2><p>Marca lo que ya haces o lo que vas a hacer. Es solo para ti: no se guarda ni se envía a ningún lugar.</p><div class="checklist glass-card" data-checklist><ul class="checklist-items"><li><label><input type="checkbox"><span>Activé MFA en mi correo principal.</span></label></li><li><label><input type="checkbox"><span>Activé MFA en mi banca o billetera digital y en mis redes sociales.</span></label></li><li><label><input type="checkbox"><span>Uso una app autenticadora o passkey en lugar de SMS cuando es posible.</span></label></li><li><label><input type="checkbox"><span>Guardé mis códigos de recuperación en un lugar seguro.</span></label></li><li><label><input type="checkbox"><span>Nunca comparto códigos ni apruebo solicitudes que yo no inicié.</span></label></li></ul><progress class="checklist-bar" max="5" value="0" aria-label="Progreso de la lista"></progress><p class="checklist-count" aria-live="polite">0 de 5 completadas</p></div></section><section class="lesson-section" id="resumen" aria-labelledby="resumen-titulo"><h2 id="resumen-titulo">Resumen</h2><ul><li>La MFA exige una segunda prueba además de la contraseña.</li><li>Apps autenticadoras y passkeys son más seguras que el SMS.</li><li>Nunca compartas un código ni apruebes solicitudes que no iniciaste.</li><li>Empieza por tu correo y guarda los códigos de recuperación.</li></ul></section></article>
+    </div>
+
+    <div class="container">
+      <nav class="lesson-nav" aria-label="Más lecciones">
+        <a class="btn btn-ghost" href="contrasenas.html"><span aria-hidden="true">←</span> Contraseñas seguras</a>
+        <a class="btn btn-primary" href="../index.html#academy">Volver a Academy</a>
+        <a class="btn btn-ghost" href="negocios.html">Seguridad para negocios <span aria-hidden="true">→</span></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="anio-actual">2026</span> CyberSafe RD. Educación y protección digital.</p>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

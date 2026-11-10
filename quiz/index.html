@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none';">
+  <title>Cyber Quiz | CyberSafe RD</title>
+  <meta name="description" content="Pon a prueba tus conocimientos de ciberseguridad con el Cyber Quiz de CyberSafe RD: phishing, contraseñas, MFA, malware y más.">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+
+  <!-- ============ BARRA DE NAVEGACIÓN ============ -->
+  <header class="site-header">
+    <nav class="navbar" aria-label="Navegación principal">
+      <a class="brand" href="../index.html#inicio" aria-label="CyberSafe RD, ir al inicio">
+        <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3Z" fill="currentColor"/>
+        </svg>
+        <span>CyberSafe <strong>RD</strong></span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu-principal">
+        <span class="visually-hidden">Abrir o cerrar el menú</span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+
+      <ul class="nav-links" id="menu-principal">
+        <li><a href="../index.html#inicio">Inicio</a></li>
+        <li><a href="../index.html#estudiantes">Estudiantes</a></li>
+        <li><a href="../index.html#negocios">Negocios</a></li>
+        <li><a href="../index.html#academy" aria-current="page">Academy</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ============ ENCABEZADO ============ -->
+    <section class="lesson-hero">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Ruta de navegación">
+          <a href="../index.html#academy">Academy</a> <span aria-hidden="true">›</span> <span>Cyber Quiz</span>
+        </nav>
+        <h1>Cyber Quiz</h1>
+        <p class="lesson-intro">Pon a prueba lo que sabes de ciberseguridad. Verás al instante si acertaste y por qué, y al final recibirás tu puntuación y recomendaciones.</p>
+        <ul class="lesson-meta" aria-label="Datos del cuestionario">
+          <li class="chip"><span data-quiz-total>10</span> preguntas</li>
+          <li class="chip">Unos 5 min</li>
+          <li class="chip">Sin registro</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ CUESTIONARIO ============ -->
+    <div class="container quiz-wrap">
+      <div class="quiz-card glass-card" id="quiz">
+
+        <!-- Pantalla 1: inicio -->
+        <div class="quiz-pantalla" id="quiz-inicio">
+          <h2>¿Cuánto sabes de ciberseguridad?</h2>
+          <p>Responde preguntas sobre phishing, contraseñas, MFA, malware, redes Wi-Fi, protección de datos y seguridad básica. Está pensado para estudiantes y pequeños negocios.</p>
+          <ul class="quiz-puntos">
+            <li><span data-quiz-total>10</span> preguntas de selección múltiple, una a la vez.</li>
+            <li>Después de cada respuesta verás si acertaste y una breve explicación.</li>
+            <li>Al final obtendrás una puntuación sobre 100 y consejos según tus errores.</li>
+            <li>No se piden datos personales ni contraseñas, y tus respuestas no se guardan.</li>
+          </ul>
+          <button class="btn btn-primary" type="button" id="quiz-comenzar">Comenzar el quiz</button>
+        </div>
+
+        <!-- Pantalla 2: pregunta -->
+        <div class="quiz-pantalla" id="quiz-pregunta" hidden>
+          <div class="quiz-top">
+            <div class="quiz-meta">
+              <span class="quiz-contador" id="quiz-contador">Pregunta 1 de 10</span>
+              <span class="chip" id="quiz-tema">Tema</span>
+            </div>
+            <progress class="quiz-progress" id="quiz-progreso" max="10" value="0" aria-label="Progreso del cuestionario"></progress>
+          </div>
+
+          <h2 class="quiz-texto" id="quiz-texto" tabindex="-1"></h2>
+          <ul class="quiz-opciones" id="quiz-opciones"></ul>
+
+          <div id="quiz-feedback-zona" role="status" aria-live="polite"></div>
+
+          <div class="quiz-acciones" id="quiz-acciones" hidden>
+            <button class="btn btn-primary" type="button" id="quiz-siguiente">Siguiente pregunta</button>
+          </div>
+        </div>
+
+        <!-- Pantalla 3: resultados -->
+        <div class="quiz-pantalla" id="quiz-resultados" hidden>
+          <div class="quiz-resultado-cabecera">
+            <div class="quiz-puntaje" id="quiz-puntaje" role="img" aria-label="Puntuación">
+              <div class="quiz-puntaje-centro">
+                <span class="quiz-puntaje-numero" id="quiz-puntaje-numero">0</span>
+                <span class="quiz-puntaje-total">de 100</span>
+              </div>
+            </div>
+            <div>
+              <h2 id="quiz-resultado-titulo" tabindex="-1">Resultados</h2>
+              <p id="quiz-resultado-texto"></p>
+            </div>
+          </div>
+
+          <div class="quiz-stats">
+            <div class="quiz-stat ok">
+              <strong id="quiz-stat-correctas">0</strong>
+              <span>Respuestas correctas</span>
+            </div>
+            <div class="quiz-stat error">
+              <strong id="quiz-stat-incorrectas">0</strong>
+              <span>Respuestas incorrectas</span>
+            </div>
+          </div>
+
+          <h3 class="quiz-subtitulo">Recomendaciones para ti</h3>
+          <ul class="quiz-recs" id="quiz-recs"></ul>
+
+          <details class="quiz-revision">
+            <summary>Revisar mis respuestas</summary>
+            <ol id="quiz-revision-lista"></ol>
+          </details>
+
+          <div class="quiz-acciones-final">
+            <button class="btn btn-primary" type="button" id="quiz-repetir">Repetir cuestionario</button>
+            <a class="btn btn-ghost" href="../index.html#academy">Volver a Academy</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container">
+      <nav class="lesson-nav" aria-label="Más opciones">
+        <a class="btn btn-ghost" href="../index.html#academy"><span aria-hidden="true">←</span> Volver a Academy</a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="anio-actual">2026</span> CyberSafe RD. Educación y protección digital.</p>
+    </div>
+  </footer>
+
+  <script src="quiz-data.js"></script>
+  <script src="quiz.js"></script>
+  <script src="../script.js"></script>
+</body>
+</html>

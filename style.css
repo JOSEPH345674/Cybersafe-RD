@@ -8,6 +8,9 @@
    5. Secciones base y pie de página
    6. Adaptable a computadora (pantallas anchas)
    7. Alternativas si el navegador no soporta cristal
+   8. CyberSafe Academy (tarjetas y páginas de lecciones)
+   9. Animaciones al hacer scroll
+   10. Cyber Quiz
    Los colores y efectos de cristal se ajustan en las variables de :root.
    ========================================================== */
 
@@ -33,6 +36,10 @@
   --degradado-boton: linear-gradient(135deg, #0E4E8A 0%, #1677C8 50%, #0E4E8A 100%);
   --degradado-texto: linear-gradient(90deg, #28B9E8, #8EE0F8);
   --brillo-celeste: rgba(40, 185, 232, 0.45);
+
+  /* ---- Colores de acierto y error del quiz (siempre acompañados de texto e icono) ---- */
+  --color-ok: #4ADE80;
+  --color-error: #FF8A8A;
 
   --fuente: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
   --ancho-max: 1120px;
@@ -193,7 +200,8 @@ button:focus-visible {
   color: var(--color-texto);
 }
 
-.nav-links a.is-active {
+.nav-links a.is-active,
+.nav-links a[aria-current="page"] {
   color: var(--color-detalle);
 }
 
@@ -278,21 +286,32 @@ button:focus-visible {
   border-radius: var(--radio-tarjeta);
 }
 
-/* ---------- 4. Sección principal (hero) ---------- */
+/* ---------- 4. Sección principal (hero) ----------
+   Diseño "móvil primero": estas reglas son la versión para teléfonos
+   (360 a 599 px). Las pantallas más anchas se ajustan más abajo, en las
+   media queries de 600 px (tableta) y 820 px (computadora). */
 .hero {
-  padding: 3rem 0 4rem;
+  padding: 1.5rem 0 2rem;
+  overflow-x: clip;   /* los resplandores nunca pueden causar desplazamiento horizontal */
 }
 
 .hero-grid {
   display: grid;
-  gap: 2.5rem;
+  gap: 1.25rem;
   align-items: center;
 }
 
+.hero-text {
+  min-width: 0;
+}
+
 .hero h1 {
-  font-size: clamp(2.1rem, 7vw, 3.6rem);
+  margin-bottom: 0.9rem;
+  font-size: clamp(1.6rem, 7.2vw, 2.2rem);   /* 360 px: 26 px · 390 px: 28 px · 430 px: 31 px */
   font-weight: 800;
+  line-height: 1.12;
   letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 .hero-accent {
@@ -313,20 +332,38 @@ button:focus-visible {
 
 .hero-description {
   max-width: 34rem;
-  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
-/* Panel de cristal que contiene el escudo, con un resplandor celeste detrás */
+/* El botón ocupa el ancho disponible y nunca se sale de la pantalla */
+.hero .btn {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  padding: 0.95rem 1.25rem;
+  text-align: center;
+}
+
+/* Escudo en teléfonos: emblema pequeño, sin recuadro, con un resplandor suave.
+   Se coloca encima del título (order: -1) y alineado con el texto. */
 .hero-visual {
   position: relative;
   display: flex;
   justify-content: center;
-  width: 100%;
-  max-width: 360px;
-  margin: 0 auto;
-  padding: 1.75rem;
-  overflow: hidden;
-  border-radius: 28px;
+  order: -1;
+  justify-self: start;
+  width: clamp(88px, 26vw, 112px);   /* 360 px: 94 px · 390 px: 101 px · 430 px: 112 px */
+  margin: 0 0 -0.4rem;   /* acerca el escudo al título */
+  padding: 0;
+  overflow: visible;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 .hero-visual::before {
@@ -334,23 +371,57 @@ button:focus-visible {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 80%;
+  width: 190%;
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
   background: radial-gradient(circle, var(--brillo-celeste), transparent 65%);
-  filter: blur(24px);
+  filter: blur(22px);
+  opacity: 0.75;
+  pointer-events: none;
 }
 
 .hero-visual svg {
   position: relative;
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 8px 24px rgba(40, 185, 232, 0.35));
+  filter: drop-shadow(0 4px 14px rgba(40, 185, 232, 0.35));
+}
+
+/* Tabletas pequeñas y teléfonos grandes en horizontal (600 a 819 px):
+   sigue siendo una columna, con tamaños un poco mayores */
+@media (min-width: 600px) {
+  .hero .btn {
+    display: inline-block;
+    width: auto;
+    padding: 0.95rem 1.9rem;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 819px) {
+  .hero {
+    padding: 2.5rem 0 3.5rem;
+  }
+
+  .hero-grid {
+    gap: 1.5rem;
+  }
+
+  .hero h1 {
+    font-size: 2.4rem;
+  }
+
+  .hero-description {
+    font-size: 1.1rem;
+  }
+
+  .hero-visual {
+    width: 120px;
+  }
 }
 
 /* ---------- 5. Secciones base y pie de página ---------- */
 .section {
-  padding: 4rem 0;
+  padding: 3rem 0;
 }
 
 .section-alt {
@@ -395,6 +466,7 @@ button:focus-visible {
     padding: 0;
     background: none;
     border: 0;
+    box-shadow: none;
   }
 
   .nav-links a {
@@ -402,26 +474,73 @@ button:focus-visible {
     border-bottom: 2px solid transparent;
   }
 
-  .nav-links a.is-active {
+  .nav-links a.is-active,
+  .nav-links a[aria-current="page"] {
     border-bottom-color: var(--color-detalle);
   }
 
   /* Hero en dos columnas: texto a la izquierda, escudo a la derecha */
   .hero {
-    padding: 6rem 0;
+    display: flex;
+    align-items: center;
+    min-height: min(calc(100vh - var(--altura-header)), 720px);
+    padding: clamp(3.5rem, 8vh, 6rem) 0;
   }
 
   .hero-grid {
-    grid-template-columns: 1.2fr 1fr;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: clamp(2.5rem, 6vw, 5rem);
+  }
+
+  .hero h1 {
+    margin-bottom: 1.25rem;
+    font-size: clamp(2.3rem, 3.9vw, 3rem);   /* crece con la pantalla, tope de 48 px */
+    line-height: 1.1;
+  }
+
+  .hero-description {
+    max-width: 33rem;
+    margin-bottom: 2rem;
+    font-size: 1.15rem;
+  }
+
+  .hero .btn {
+    padding: 1rem 2.1rem;
   }
 
   .section {
     padding: 5rem 0;
   }
 
-  .glass-card,
-  .hero-visual {
+  .glass-card {
     padding: 2.25rem;
+  }
+
+  /* En computadora el escudo vuelve a tener su panel de cristal, a la derecha */
+  .hero-visual {
+    order: 0;
+    justify-self: center;
+    width: 100%;
+    max-width: 400px;
+    margin: 0;
+    padding: 2.25rem;
+    overflow: hidden;
+    background: var(--vidrio-fondo);
+    border: 1px solid var(--vidrio-borde);
+    border-radius: 28px;
+    box-shadow: var(--vidrio-sombra), var(--vidrio-brillo);
+    -webkit-backdrop-filter: blur(var(--vidrio-desenfoque));
+    backdrop-filter: blur(var(--vidrio-desenfoque));
+  }
+
+  .hero-visual::before {
+    width: 80%;
+    filter: blur(24px);
+    opacity: 1;
+  }
+
+  .hero-visual svg {
+    filter: drop-shadow(0 8px 24px rgba(40, 185, 232, 0.35));
   }
 }
 
@@ -432,6 +551,1029 @@ button:focus-visible {
   }
   * {
     transition: none !important;
+  }
+}
+
+/* ---------- 8. CyberSafe Academy ---------- */
+
+/* 8.1 Tarjetas en la página principal */
+.section-heading {
+  max-width: 40rem;
+  margin-bottom: 2rem;
+}
+
+.section-heading h2 {
+  margin-bottom: 0.6rem;
+}
+
+.academy-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.academy-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.academy-card:hover,
+.academy-card:focus-visible {
+  transform: translateY(-4px);
+  border-color: rgba(40, 185, 232, 0.55);
+  box-shadow: var(--vidrio-sombra), 0 0 28px rgba(40, 185, 232, 0.18), var(--vidrio-brillo);
+}
+
+.academy-card:focus-visible {
+  border-radius: var(--radio-tarjeta);  /* evita que el foco cambie la forma */
+}
+
+.academy-icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 1rem;
+  color: var(--color-detalle);
+  background: linear-gradient(135deg, rgba(22, 119, 200, 0.45), rgba(40, 185, 232, 0.15));
+  border: 1px solid rgba(40, 185, 232, 0.35);
+  border-radius: 14px;
+  box-shadow: 0 0 18px rgba(40, 185, 232, 0.2);
+}
+
+.academy-icon svg {
+  width: 26px;
+  height: 26px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.academy-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+  line-height: 1.25;
+}
+
+.academy-card p {
+  margin: 0 0 1rem;
+}
+
+.academy-meta {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-detalle);
+}
+
+.academy-cta {
+  margin-top: auto;
+  padding-top: 1rem;
+  font-weight: 600;
+}
+
+.academy-cta span {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.academy-card:hover .academy-cta span {
+  transform: translateX(4px);
+}
+
+/* 8.2 Páginas de lección */
+.lesson-hero {
+  padding: 2.5rem 0 0.5rem;
+}
+
+.breadcrumb {
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: var(--color-texto-suave);
+}
+
+.breadcrumb a {
+  color: var(--color-detalle);
+}
+
+.lesson-hero h1 {
+  font-size: clamp(1.9rem, 6vw, 2.9rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.lesson-intro {
+  max-width: 42rem;
+  font-size: 1.1rem;
+}
+
+.lesson-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chip {
+  padding: 0.3rem 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #BFEBFA;
+  background: rgba(40, 185, 232, 0.12);
+  border: 1px solid rgba(40, 185, 232, 0.4);
+  border-radius: 999px;
+}
+
+.lesson-layout {
+  display: grid;
+  gap: 1.5rem;
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
+}
+
+.lesson-toc {
+  align-self: start;
+  padding: 1.25rem 1.5rem;
+}
+
+.toc-title {
+  margin: 0 0 0.6rem;
+  font-size: 1rem;
+}
+
+.lesson-toc ol {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--color-texto-suave);
+}
+
+.lesson-toc a {
+  display: inline-block;
+  padding: 0.25rem 0;
+  color: var(--color-texto-suave);
+  text-decoration: none;
+}
+
+.lesson-toc a:hover {
+  color: var(--color-detalle);
+  text-decoration: underline;
+}
+
+.lesson-body {
+  min-width: 0;
+}
+
+.lesson-section {
+  margin-bottom: 2.5rem;
+}
+
+.lesson-section h2 {
+  margin-bottom: 0.9rem;
+  font-size: 1.6rem;
+}
+
+.lesson-section h3 {
+  margin: 1.25rem 0 0.4rem;
+  font-size: 1.1rem;
+}
+
+.lesson-body p,
+.lesson-body li {
+  max-width: 46rem;
+}
+
+.lesson-body p {
+  margin-bottom: 1rem;
+}
+
+.lesson-body ul,
+.lesson-body ol {
+  padding-left: 1.25rem;
+  color: var(--color-texto-suave);
+}
+
+.lesson-body li {
+  margin-bottom: 0.5rem;
+}
+
+.lesson-body strong {
+  color: var(--color-texto);
+}
+
+.lesson-body a {
+  color: var(--color-detalle);
+}
+
+.lesson-body code {
+  padding: 0.1rem 0.4rem;
+  font-size: 0.9em;
+  color: #BFEBFA;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  overflow-wrap: anywhere;
+}
+
+/* Objetivos con marca de verificación */
+.lesson-body .objectives {
+  padding-left: 0;
+  list-style: none;
+}
+
+.objectives li {
+  position: relative;
+  padding-left: 1.9rem;
+}
+
+.objectives li::before {
+  content: "✓";
+  content: "✓" / "";
+  position: absolute;
+  left: 0;
+  font-weight: 700;
+  color: var(--color-detalle);
+}
+
+/* Avisos y recuadros */
+.callout {
+  margin: 1.25rem 0;
+  padding: 1rem 1.25rem;
+  border-left: 4px solid var(--color-detalle);
+  border-radius: 14px;
+}
+
+.callout p {
+  margin: 0;
+}
+
+.signs-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.sign-card {
+  padding: 1.1rem 1.25rem;
+  border-radius: 16px;
+}
+
+.sign-card h3 {
+  margin: 0 0 0.3rem;
+  font-size: 1.05rem;
+}
+
+.sign-card p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* Ejemplo de mensaje fraudulento (ficticio) */
+.example-box {
+  margin: 1rem 0;
+  padding: 1.25rem;
+  font-size: 0.95rem;
+  background: rgba(8, 16, 30, 0.55);
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  overflow-wrap: anywhere;
+}
+
+.example-label {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #FFD76A;
+  background: rgba(255, 215, 106, 0.14);
+  border-radius: 6px;
+}
+
+.lesson-body .mail-line {
+  margin-bottom: 0.6rem;
+}
+
+.mark {
+  display: inline-grid;
+  place-items: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  margin-left: 0.3rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--degradado-boton);
+  border: 1px solid rgba(40, 185, 232, 0.55);
+  border-radius: 50%;
+}
+
+/* Pasos numerados */
+.lesson-body .steps {
+  padding-left: 0;
+  list-style: none;
+  counter-reset: paso;
+}
+
+.steps li {
+  position: relative;
+  padding-left: 3rem;
+  counter-increment: paso;
+}
+
+.steps li::before {
+  content: counter(paso);
+  position: absolute;
+  top: -0.1rem;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--degradado-boton);
+  border: 1px solid rgba(40, 185, 232, 0.55);
+  border-radius: 50%;
+}
+
+/* Lista de verificación interactiva */
+.lesson-body .checklist-items {
+  margin: 0 0 1.25rem;
+  padding-left: 0;
+  list-style: none;
+}
+
+.checklist-items li {
+  max-width: none;
+  margin-bottom: 0;
+}
+
+.checklist-items label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.6rem 0.25rem;
+  cursor: pointer;
+}
+
+.checklist-items input {
+  flex: none;
+  width: 1.3rem;
+  height: 1.3rem;
+  margin-top: 0.15rem;
+  accent-color: var(--color-detalle);
+}
+
+.checklist-items input:checked + span {
+  color: var(--color-texto);
+}
+
+.checklist-bar,
+.quiz-progress {
+  width: 100%;
+  height: 10px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.12);
+  border: 0;
+  border-radius: 999px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.checklist-bar::-webkit-progress-bar,
+.quiz-progress::-webkit-progress-bar {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.checklist-bar::-webkit-progress-value,
+.quiz-progress::-webkit-progress-value {
+  background: linear-gradient(90deg, #1677C8, #28B9E8);
+  border-radius: 999px;
+}
+
+.checklist-bar::-moz-progress-bar,
+.quiz-progress::-moz-progress-bar {
+  background: linear-gradient(90deg, #1677C8, #28B9E8);
+  border-radius: 999px;
+}
+
+.lesson-body .checklist-count {
+  max-width: none;
+  margin: 0.6rem 0 0;
+  font-size: 0.9rem;
+}
+
+/* Navegación entre lecciones */
+.lesson-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  padding-bottom: 4rem;
+}
+
+.btn-ghost {
+  color: var(--color-texto);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--vidrio-borde);
+  box-shadow: var(--vidrio-brillo);
+}
+
+.btn-ghost:hover {
+  border-color: var(--color-detalle);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(40, 185, 232, 0.2), var(--vidrio-brillo);
+}
+
+@media (min-width: 640px) {
+  .academy-grid,
+  .signs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .lesson-layout {
+    grid-template-columns: 250px minmax(0, 1fr);
+    gap: 2.5rem;
+  }
+
+  .lesson-toc {
+    position: sticky;
+    top: calc(var(--altura-header) + 1.25rem);
+  }
+}
+
+/* ---------- 9. Animaciones al hacer scroll ----------
+   El JavaScript añade la clase .reveal a los elementos que deben animarse
+   y .is-visible cuando entran en pantalla. Si JavaScript no carga, o si la
+   persona prefiere menos movimiento, todo se muestra sin animar.
+   Se usan las propiedades "translate" y "scale" (no "transform") para no
+   chocar con los efectos hover de las tarjetas y los botones.
+
+   Variables para ajustar el efecto:
+   --dy: distancia vertical · --dx: distancia horizontal · --duracion: duración */
+.js .reveal {
+  --dy: 28px;
+  --duracion: 0.7s;
+  opacity: 0;
+}
+
+.js .reveal.is-visible {
+  animation: aparecer var(--duracion) cubic-bezier(0.22, 0.61, 0.36, 1) var(--retraso, 0s) both;
+}
+
+/* Variante con zoom suave (la usa el escudo) */
+.js .reveal-zoom.is-visible {
+  animation-name: aparecer-zoom;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    translate: var(--dx, 0) var(--dy, 28px);
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes aparecer-zoom {
+  from {
+    opacity: 0;
+    scale: 0.85;
+    translate: var(--dx, 0) 0;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+    translate: 0 0;
+  }
+}
+
+/* Movimiento continuo y suave del escudo: flota y su resplandor "respira" */
+.hero-visual svg {
+  animation: flotar 7s ease-in-out infinite;
+}
+
+.hero-visual::before {
+  animation: pulso 5s ease-in-out infinite alternate;
+}
+
+@keyframes flotar {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -10px; }
+}
+
+@keyframes pulso {
+  from { scale: 0.9; }
+  to { scale: 1.1; }
+}
+
+/* En computadora el recorrido es mayor y más lento, para que se note:
+   el texto entra desde la izquierda y el escudo desde la derecha */
+@media (min-width: 820px) {
+  .js .reveal {
+    --dy: 56px;
+    --duracion: 1s;
+  }
+
+  .js .hero-text .reveal {
+    --dx: -64px;
+    --dy: 0px;
+  }
+
+  .js .hero-visual.reveal {
+    --dx: 72px;
+    --duracion: 1.2s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal {
+    opacity: 1;
+  }
+
+  .js .reveal.is-visible,
+  .hero-visual svg,
+  .hero-visual::before {
+    animation: none;
+  }
+}
+
+/* ---------- 10. Cyber Quiz ---------- */
+
+/* 10.1 Acceso desde la sección Academy */
+.quiz-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+  background: linear-gradient(135deg, rgba(22, 119, 200, 0.3), rgba(40, 185, 232, 0.08));
+}
+
+.quiz-cta h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1.25rem;
+}
+
+.quiz-cta p {
+  margin: 0;
+}
+
+.quiz-cta .btn {
+  text-align: center;
+}
+
+/* 10.2 Tarjeta y pantallas */
+.quiz-wrap {
+  max-width: 860px;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.quiz-card {
+  padding: 1.25rem;
+  border-radius: var(--radio-tarjeta);
+}
+
+.quiz-card [hidden] {
+  display: none !important;
+}
+
+.quiz-entra {
+  --dy: 14px;
+  animation: aparecer 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.quiz-pantalla h2:focus {
+  outline: none;
+}
+
+.quiz-pantalla > p {
+  max-width: 40rem;
+}
+
+.quiz-puntos {
+  margin: 0 0 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.quiz-puntos li {
+  position: relative;
+  margin-bottom: 0.6rem;
+  padding-left: 1.9rem;
+  color: var(--color-texto-suave);
+}
+
+.quiz-puntos li::before {
+  content: "✓";
+  content: "✓" / "";
+  position: absolute;
+  left: 0;
+  font-weight: 700;
+  color: var(--color-detalle);
+}
+
+.quiz-card > .quiz-pantalla > .btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+/* 10.3 Pregunta y progreso */
+.quiz-top {
+  margin-bottom: 1.25rem;
+}
+
+.quiz-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-bottom: 0.7rem;
+}
+
+.quiz-contador {
+  font-weight: 700;
+}
+
+.quiz-progress {
+  display: block;
+  width: 100%;
+  height: 12px;
+}
+
+.quiz-texto {
+  margin: 0 0 1.25rem;
+  font-size: clamp(1.15rem, 4.6vw, 1.55rem);
+  line-height: 1.3;
+}
+
+.quiz-opciones {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.quiz-opcion {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  width: 100%;
+  padding: 0.9rem 1rem;
+  font: inherit;
+  line-height: 1.45;
+  text-align: left;
+  color: var(--color-texto);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--vidrio-borde);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease, translate 0.2s ease;
+}
+
+.quiz-opcion:hover:not(:disabled) {
+  background: rgba(40, 185, 232, 0.1);
+  border-color: var(--color-detalle);
+  translate: 0 -2px;
+}
+
+.quiz-opcion:disabled {
+  cursor: default;
+  color: var(--color-texto);
+}
+
+.quiz-opcion:disabled:not(.is-correcta):not(.is-incorrecta) {
+  opacity: 0.6;
+}
+
+.quiz-letra {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--degradado-boton);
+  border: 1px solid rgba(40, 185, 232, 0.55);
+  border-radius: 50%;
+}
+
+.quiz-opcion-texto {
+  flex: 1;
+  min-width: 0;
+  padding-top: 0.2rem;
+  overflow-wrap: anywhere;
+}
+
+.quiz-estado {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.quiz-opcion.is-correcta {
+  background: rgba(74, 222, 128, 0.14);
+  border-color: var(--color-ok);
+}
+
+.quiz-opcion.is-correcta .quiz-estado {
+  color: var(--color-ok);
+}
+
+.quiz-opcion.is-incorrecta {
+  background: rgba(255, 138, 138, 0.14);
+  border-color: var(--color-error);
+}
+
+.quiz-opcion.is-incorrecta .quiz-estado {
+  color: var(--color-error);
+}
+
+/* 10.4 Retroalimentación */
+.quiz-feedback {
+  margin-top: 1.25rem;
+  padding: 1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--vidrio-borde);
+  border-left-width: 4px;
+  border-radius: 14px;
+}
+
+.quiz-feedback.ok {
+  border-left-color: var(--color-ok);
+}
+
+.quiz-feedback.error {
+  border-left-color: var(--color-error);
+}
+
+.quiz-feedback p {
+  margin: 0;
+}
+
+.quiz-feedback .quiz-feedback-titulo {
+  margin-bottom: 0.35rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.quiz-feedback.ok .quiz-feedback-titulo {
+  color: var(--color-ok);
+}
+
+.quiz-feedback.error .quiz-feedback-titulo {
+  color: var(--color-error);
+}
+
+.quiz-acciones {
+  display: flex;
+  margin-top: 1.25rem;
+}
+
+.quiz-acciones .btn {
+  width: 100%;
+  text-align: center;
+}
+
+/* 10.5 Resultados */
+.quiz-resultado-cabecera {
+  display: grid;
+  gap: 1.25rem;
+  justify-items: center;
+  text-align: center;
+}
+
+.quiz-resultado-cabecera p {
+  margin: 0;
+}
+
+.quiz-puntaje {
+  --p: 0;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 150px;
+  height: 150px;
+  background: conic-gradient(from 0deg, #1677C8, #28B9E8 calc(var(--p) * 1%), rgba(255, 255, 255, 0.12) 0);
+  border-radius: 50%;
+  box-shadow: 0 0 32px rgba(40, 185, 232, 0.25);
+}
+
+.quiz-puntaje::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  background: #0F2240;
+  border-radius: 50%;
+}
+
+.quiz-puntaje-centro {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.1;
+}
+
+.quiz-puntaje-numero {
+  font-size: 3rem;
+  font-weight: 800;
+  background: var(--degradado-texto);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--color-detalle);
+}
+
+.quiz-puntaje-total {
+  font-size: 0.85rem;
+  color: var(--color-texto-suave);
+}
+
+.quiz-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin: 1.5rem 0 0;
+}
+
+.quiz-stat {
+  padding: 1rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--vidrio-borde);
+  border-radius: 16px;
+}
+
+.quiz-stat strong {
+  display: block;
+  font-size: 2rem;
+  line-height: 1.1;
+}
+
+.quiz-stat.ok strong {
+  color: var(--color-ok);
+}
+
+.quiz-stat.error strong {
+  color: var(--color-error);
+}
+
+.quiz-stat span {
+  font-size: 0.9rem;
+  color: var(--color-texto-suave);
+}
+
+.quiz-subtitulo {
+  margin: 1.75rem 0 0.75rem;
+  font-size: 1.25rem;
+}
+
+.quiz-recs {
+  display: grid;
+  gap: 0.9rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.quiz-rec {
+  padding: 1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--vidrio-borde);
+  border-left: 4px solid var(--color-detalle);
+  border-radius: 14px;
+}
+
+.quiz-rec h4 {
+  margin: 0 0 0.3rem;
+  font-size: 1.05rem;
+}
+
+.quiz-rec p {
+  margin: 0 0 0.6rem;
+}
+
+.quiz-rec p:last-child {
+  margin-bottom: 0;
+}
+
+.quiz-rec a {
+  font-weight: 600;
+  color: var(--color-detalle);
+}
+
+.quiz-revision {
+  margin-top: 1.5rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--vidrio-borde);
+  border-radius: 14px;
+}
+
+.quiz-revision summary {
+  padding: 0.9rem 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.quiz-revision ol {
+  margin: 0;
+  padding: 0 1.1rem 0.5rem 2.4rem;
+}
+
+.quiz-revision li {
+  margin-bottom: 1rem;
+}
+
+.quiz-revision p {
+  margin: 0 0 0.25rem;
+  font-size: 0.95rem;
+}
+
+.quiz-rev-pregunta {
+  color: var(--color-texto);
+}
+
+.quiz-tag {
+  font-weight: 700;
+}
+
+.quiz-tag.ok {
+  color: var(--color-ok);
+}
+
+.quiz-tag.error {
+  color: var(--color-error);
+}
+
+.quiz-acciones-final {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+.quiz-acciones-final .btn {
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .quiz-card {
+    padding: 2rem;
+  }
+
+  .quiz-card > .quiz-pantalla > .btn,
+  .quiz-acciones .btn {
+    width: auto;
+  }
+
+  .quiz-acciones {
+    justify-content: flex-end;
+  }
+
+  .quiz-resultado-cabecera {
+    grid-template-columns: auto 1fr;
+    gap: 2rem;
+    justify-items: start;
+    text-align: left;
+  }
+
+  .quiz-acciones-final {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 760px) {
+  .quiz-cta {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quiz-entra {
+    animation: none;
   }
 }
 
@@ -446,9 +1588,14 @@ button:focus-visible {
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .site-header,
   .glass-card,
-  .hero-visual,
   .site-footer {
     background: rgba(16, 31, 54, 0.94);
+  }
+
+  @media (min-width: 820px) {
+    .hero-visual {
+      background: rgba(16, 31, 54, 0.94);
+    }
   }
 }
 
@@ -456,10 +1603,17 @@ button:focus-visible {
 @media (prefers-reduced-transparency: reduce) {
   .site-header,
   .glass-card,
-  .hero-visual,
   .site-footer {
     background: #14284A;
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
+  }
+
+  @media (min-width: 820px) {
+    .hero-visual {
+      background: #14284A;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
   }
 }
