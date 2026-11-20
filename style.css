@@ -10,7 +10,8 @@
    7. Alternativas si el navegador no soporta cristal
    8. CyberSafe Academy (tarjetas y páginas de lecciones)
    9. Animaciones al hacer scroll
-   10. Cyber Quiz
+   10. Acceso al Cyber Quiz (los estilos del cuestionario están en quiz/quiz.css)
+   11. Secciones Estudiantes y Negocios (temas, casos y actividades)
    Los colores y efectos de cristal se ajustan en las variables de :root.
    ========================================================== */
 
@@ -37,9 +38,10 @@
   --degradado-texto: linear-gradient(90deg, #28B9E8, #8EE0F8);
   --brillo-celeste: rgba(40, 185, 232, 0.45);
 
-  /* ---- Colores de acierto y error del quiz (siempre acompañados de texto e icono) ---- */
+  /* ---- Estados de acierto, error y aviso (siempre acompañados de texto o icono) ---- */
   --color-ok: #4ADE80;
   --color-error: #FF8A8A;
+  --color-aviso: #FFD76A;
 
   --fuente: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
   --ancho-max: 1120px;
@@ -937,8 +939,7 @@ button:focus-visible {
   color: var(--color-texto);
 }
 
-.checklist-bar,
-.quiz-progress {
+.checklist-bar {
   width: 100%;
   height: 10px;
   overflow: hidden;
@@ -949,19 +950,16 @@ button:focus-visible {
   appearance: none;
 }
 
-.checklist-bar::-webkit-progress-bar,
-.quiz-progress::-webkit-progress-bar {
+.checklist-bar::-webkit-progress-bar {
   background: rgba(255, 255, 255, 0.12);
 }
 
-.checklist-bar::-webkit-progress-value,
-.quiz-progress::-webkit-progress-value {
+.checklist-bar::-webkit-progress-value {
   background: linear-gradient(90deg, #1677C8, #28B9E8);
   border-radius: 999px;
 }
 
-.checklist-bar::-moz-progress-bar,
-.quiz-progress::-moz-progress-bar {
+.checklist-bar::-moz-progress-bar {
   background: linear-gradient(90deg, #1677C8, #28B9E8);
   border-radius: 999px;
 }
@@ -1111,9 +1109,10 @@ button:focus-visible {
   }
 }
 
-/* ---------- 10. Cyber Quiz ---------- */
+/* ---------- 10. Acceso al Cyber Quiz ----------
+   Aquí solo está la tarjeta de la sección Academy.
+   Los estilos del cuestionario están en quiz/quiz.css. */
 
-/* 10.1 Acceso desde la sección Academy */
 .quiz-cta {
   display: flex;
   flex-direction: column;
@@ -1135,433 +1134,6 @@ button:focus-visible {
   text-align: center;
 }
 
-/* 10.2 Tarjeta y pantallas */
-.quiz-wrap {
-  max-width: 860px;
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-}
-
-.quiz-card {
-  padding: 1.25rem;
-  border-radius: var(--radio-tarjeta);
-}
-
-.quiz-card [hidden] {
-  display: none !important;
-}
-
-.quiz-entra {
-  --dy: 14px;
-  animation: aparecer 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) both;
-}
-
-.quiz-pantalla h2:focus {
-  outline: none;
-}
-
-.quiz-pantalla > p {
-  max-width: 40rem;
-}
-
-.quiz-puntos {
-  margin: 0 0 1.5rem;
-  padding: 0;
-  list-style: none;
-}
-
-.quiz-puntos li {
-  position: relative;
-  margin-bottom: 0.6rem;
-  padding-left: 1.9rem;
-  color: var(--color-texto-suave);
-}
-
-.quiz-puntos li::before {
-  content: "✓";
-  content: "✓" / "";
-  position: absolute;
-  left: 0;
-  font-weight: 700;
-  color: var(--color-detalle);
-}
-
-.quiz-card > .quiz-pantalla > .btn {
-  display: block;
-  width: 100%;
-  text-align: center;
-}
-
-/* 10.3 Pregunta y progreso */
-.quiz-top {
-  margin-bottom: 1.25rem;
-}
-
-.quiz-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.6rem;
-  margin-bottom: 0.7rem;
-}
-
-.quiz-contador {
-  font-weight: 700;
-}
-
-.quiz-progress {
-  display: block;
-  width: 100%;
-  height: 12px;
-}
-
-.quiz-texto {
-  margin: 0 0 1.25rem;
-  font-size: clamp(1.15rem, 4.6vw, 1.55rem);
-  line-height: 1.3;
-}
-
-.quiz-opciones {
-  display: grid;
-  gap: 0.75rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.quiz-opcion {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.85rem;
-  width: 100%;
-  padding: 0.9rem 1rem;
-  font: inherit;
-  line-height: 1.45;
-  text-align: left;
-  color: var(--color-texto);
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid var(--vidrio-borde);
-  border-radius: 14px;
-  cursor: pointer;
-  transition: border-color 0.2s ease, background-color 0.2s ease, translate 0.2s ease;
-}
-
-.quiz-opcion:hover:not(:disabled) {
-  background: rgba(40, 185, 232, 0.1);
-  border-color: var(--color-detalle);
-  translate: 0 -2px;
-}
-
-.quiz-opcion:disabled {
-  cursor: default;
-  color: var(--color-texto);
-}
-
-.quiz-opcion:disabled:not(.is-correcta):not(.is-incorrecta) {
-  opacity: 0.6;
-}
-
-.quiz-letra {
-  display: grid;
-  flex: none;
-  place-items: center;
-  width: 2rem;
-  height: 2rem;
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: #fff;
-  background: var(--degradado-boton);
-  border: 1px solid rgba(40, 185, 232, 0.55);
-  border-radius: 50%;
-}
-
-.quiz-opcion-texto {
-  flex: 1;
-  min-width: 0;
-  padding-top: 0.2rem;
-  overflow-wrap: anywhere;
-}
-
-.quiz-estado {
-  display: block;
-  margin-top: 0.3rem;
-  font-size: 0.85rem;
-  font-weight: 700;
-}
-
-.quiz-opcion.is-correcta {
-  background: rgba(74, 222, 128, 0.14);
-  border-color: var(--color-ok);
-}
-
-.quiz-opcion.is-correcta .quiz-estado {
-  color: var(--color-ok);
-}
-
-.quiz-opcion.is-incorrecta {
-  background: rgba(255, 138, 138, 0.14);
-  border-color: var(--color-error);
-}
-
-.quiz-opcion.is-incorrecta .quiz-estado {
-  color: var(--color-error);
-}
-
-/* 10.4 Retroalimentación */
-.quiz-feedback {
-  margin-top: 1.25rem;
-  padding: 1rem 1.25rem;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid var(--vidrio-borde);
-  border-left-width: 4px;
-  border-radius: 14px;
-}
-
-.quiz-feedback.ok {
-  border-left-color: var(--color-ok);
-}
-
-.quiz-feedback.error {
-  border-left-color: var(--color-error);
-}
-
-.quiz-feedback p {
-  margin: 0;
-}
-
-.quiz-feedback .quiz-feedback-titulo {
-  margin-bottom: 0.35rem;
-  font-size: 1.05rem;
-  font-weight: 700;
-}
-
-.quiz-feedback.ok .quiz-feedback-titulo {
-  color: var(--color-ok);
-}
-
-.quiz-feedback.error .quiz-feedback-titulo {
-  color: var(--color-error);
-}
-
-.quiz-acciones {
-  display: flex;
-  margin-top: 1.25rem;
-}
-
-.quiz-acciones .btn {
-  width: 100%;
-  text-align: center;
-}
-
-/* 10.5 Resultados */
-.quiz-resultado-cabecera {
-  display: grid;
-  gap: 1.25rem;
-  justify-items: center;
-  text-align: center;
-}
-
-.quiz-resultado-cabecera p {
-  margin: 0;
-}
-
-.quiz-puntaje {
-  --p: 0;
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 150px;
-  height: 150px;
-  background: conic-gradient(from 0deg, #1677C8, #28B9E8 calc(var(--p) * 1%), rgba(255, 255, 255, 0.12) 0);
-  border-radius: 50%;
-  box-shadow: 0 0 32px rgba(40, 185, 232, 0.25);
-}
-
-.quiz-puntaje::before {
-  content: "";
-  position: absolute;
-  inset: 10px;
-  background: #0F2240;
-  border-radius: 50%;
-}
-
-.quiz-puntaje-centro {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  line-height: 1.1;
-}
-
-.quiz-puntaje-numero {
-  font-size: 3rem;
-  font-weight: 800;
-  background: var(--degradado-texto);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: var(--color-detalle);
-}
-
-.quiz-puntaje-total {
-  font-size: 0.85rem;
-  color: var(--color-texto-suave);
-}
-
-.quiz-stats {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
-  margin: 1.5rem 0 0;
-}
-
-.quiz-stat {
-  padding: 1rem;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid var(--vidrio-borde);
-  border-radius: 16px;
-}
-
-.quiz-stat strong {
-  display: block;
-  font-size: 2rem;
-  line-height: 1.1;
-}
-
-.quiz-stat.ok strong {
-  color: var(--color-ok);
-}
-
-.quiz-stat.error strong {
-  color: var(--color-error);
-}
-
-.quiz-stat span {
-  font-size: 0.9rem;
-  color: var(--color-texto-suave);
-}
-
-.quiz-subtitulo {
-  margin: 1.75rem 0 0.75rem;
-  font-size: 1.25rem;
-}
-
-.quiz-recs {
-  display: grid;
-  gap: 0.9rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.quiz-rec {
-  padding: 1rem 1.25rem;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid var(--vidrio-borde);
-  border-left: 4px solid var(--color-detalle);
-  border-radius: 14px;
-}
-
-.quiz-rec h4 {
-  margin: 0 0 0.3rem;
-  font-size: 1.05rem;
-}
-
-.quiz-rec p {
-  margin: 0 0 0.6rem;
-}
-
-.quiz-rec p:last-child {
-  margin-bottom: 0;
-}
-
-.quiz-rec a {
-  font-weight: 600;
-  color: var(--color-detalle);
-}
-
-.quiz-revision {
-  margin-top: 1.5rem;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--vidrio-borde);
-  border-radius: 14px;
-}
-
-.quiz-revision summary {
-  padding: 0.9rem 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.quiz-revision ol {
-  margin: 0;
-  padding: 0 1.1rem 0.5rem 2.4rem;
-}
-
-.quiz-revision li {
-  margin-bottom: 1rem;
-}
-
-.quiz-revision p {
-  margin: 0 0 0.25rem;
-  font-size: 0.95rem;
-}
-
-.quiz-rev-pregunta {
-  color: var(--color-texto);
-}
-
-.quiz-tag {
-  font-weight: 700;
-}
-
-.quiz-tag.ok {
-  color: var(--color-ok);
-}
-
-.quiz-tag.error {
-  color: var(--color-error);
-}
-
-.quiz-acciones-final {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-top: 1.75rem;
-}
-
-.quiz-acciones-final .btn {
-  text-align: center;
-}
-
-@media (min-width: 640px) {
-  .quiz-card {
-    padding: 2rem;
-  }
-
-  .quiz-card > .quiz-pantalla > .btn,
-  .quiz-acciones .btn {
-    width: auto;
-  }
-
-  .quiz-acciones {
-    justify-content: flex-end;
-  }
-
-  .quiz-resultado-cabecera {
-    grid-template-columns: auto 1fr;
-    gap: 2rem;
-    justify-items: start;
-    text-align: left;
-  }
-
-  .quiz-acciones-final {
-    flex-direction: row;
-  }
-}
-
 @media (min-width: 760px) {
   .quiz-cta {
     flex-direction: row;
@@ -1571,9 +1143,502 @@ button:focus-visible {
   }
 }
 
+/* ---------- 11. Secciones Estudiantes y Negocios ----------
+   Cada sección tiene un selector de temas (pestañas), un panel con el
+   caso, las recomendaciones y una actividad de comprobación.
+   Sin JavaScript se ven todos los paneles uno debajo de otro. */
+.tema-zona {
+  display: grid;
+  gap: 1.25rem;
+}
+
+/* El atributo hidden debe ocultar también los elementos con .btn (que definen su propio display) */
+.tema-zona [hidden] {
+  display: none !important;
+}
+
+/* Progreso de las actividades */
+.tema-progreso {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.tema-progreso-fila {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  min-height: 2.2rem;
+}
+
+.tema-progreso-texto {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-texto-suave);
+}
+
+.tema-reiniciar {
+  padding: 0.4rem 0.95rem;
+  font-size: 0.85rem;
+}
+
+.tema-barra {
+  display: block;
+  width: 100%;
+  height: 10px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.12);
+  border: 0;
+  border-radius: 999px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.tema-barra::-webkit-progress-bar {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.tema-barra::-webkit-progress-value {
+  background: linear-gradient(90deg, #1677C8, #28B9E8);
+  border-radius: 999px;
+}
+
+.tema-barra::-moz-progress-bar {
+  background: linear-gradient(90deg, #1677C8, #28B9E8);
+  border-radius: 999px;
+}
+
+/* Selector de temas */
+.tema-lista {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.7rem;
+}
+
+html:not(.js) .tema-lista {
+  display: none;
+}
+
+.tema-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  min-width: 0;
+  padding: 0.85rem;
+  font: inherit;
+  text-align: left;
+  color: var(--color-texto);
+  background: var(--vidrio-fondo);
+  border: 1px solid var(--vidrio-borde);
+  border-radius: 16px;
+  box-shadow: var(--vidrio-brillo);
+  cursor: pointer;
+  transition: border-color 0.2s ease, translate 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.tema-card:hover {
+  border-color: rgba(40, 185, 232, 0.55);
+  translate: 0 -3px;
+  box-shadow: 0 10px 28px rgba(2, 10, 24, 0.35), 0 0 22px rgba(40, 185, 232, 0.15), var(--vidrio-brillo);
+}
+
+.tema-card[aria-selected="true"] {
+  background: linear-gradient(135deg, rgba(22, 119, 200, 0.42), rgba(40, 185, 232, 0.14));
+  border-color: var(--color-detalle);
+  box-shadow: 0 0 0 1px var(--color-detalle), 0 0 28px rgba(40, 185, 232, 0.22);
+}
+
+.tema-icono {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  color: var(--color-detalle);
+  background: linear-gradient(135deg, rgba(22, 119, 200, 0.45), rgba(40, 185, 232, 0.15));
+  border: 1px solid rgba(40, 185, 232, 0.35);
+  border-radius: 12px;
+  box-shadow: 0 0 16px rgba(40, 185, 232, 0.18);
+}
+
+.tema-icono svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.tema-card-titulo {
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.tema-card-desc {
+  display: none;
+  font-size: 0.85rem;
+  color: var(--color-texto-suave);
+}
+
+.tema-estado {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.7rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.tema-card[data-estado="ok"] .tema-estado {
+  color: var(--color-ok);
+}
+
+.tema-card[data-estado="error"] .tema-estado {
+  color: var(--color-aviso);
+}
+
+/* Panel del tema */
+.tema-panel-zona {
+  padding: 1.25rem;
+  border-radius: var(--radio-tarjeta);
+}
+
+.js .tema-panel:not(.is-activo) {
+  display: none;
+}
+
+html:not(.js) .tema-panel + .tema-panel {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.tema-panel:focus {
+  outline: none;
+}
+
+.tema-entra {
+  --dy: 14px;
+  animation: aparecer 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.tema-cabecera {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 1.25rem;
+}
+
+.tema-cabecera .tema-icono {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+}
+
+.tema-cabecera .tema-icono svg {
+  width: 26px;
+  height: 26px;
+}
+
+.tema-cabecera h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+
+.tema-lead {
+  max-width: 46rem;
+  margin: 0;
+}
+
+.tema-cuerpo {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.tema-etiqueta {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-detalle);
+}
+
+.tema-situacion {
+  margin-bottom: 1.25rem;
+  padding: 0.95rem 1.1rem;
+  background: rgba(40, 185, 232, 0.08);
+  border: 1px solid rgba(40, 185, 232, 0.28);
+  border-left-width: 4px;
+  border-radius: 14px;
+}
+
+.tema-situacion p {
+  margin: 0;
+  color: #E6EEF8;
+}
+
+.tema-info h4 {
+  margin: 0 0 0.7rem;
+  font-size: 1.05rem;
+}
+
+.tema-checks {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tema-checks li {
+  position: relative;
+  margin-bottom: 0.65rem;
+  padding-left: 1.8rem;
+  color: var(--color-texto-suave);
+}
+
+.tema-checks li::before {
+  content: "✓";
+  content: "✓" / "";
+  position: absolute;
+  left: 0;
+  font-weight: 700;
+  color: var(--color-detalle);
+}
+
+/* Actividad de comprobación */
+.tema-actividad {
+  padding: 1.1rem 1.2rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--vidrio-borde);
+  border-radius: 16px;
+  box-shadow: var(--vidrio-brillo);
+}
+
+.tema-act-pregunta {
+  max-width: none;
+  margin: 0 0 0.9rem;
+  font-weight: 600;
+  color: var(--color-texto);
+}
+
+.tema-opciones {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.tema-opcion {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  font: inherit;
+  line-height: 1.45;
+  text-align: left;
+  color: var(--color-texto);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--vidrio-borde);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tema-opcion > span:last-child {
+  min-width: 0;
+  padding-top: 0.1rem;
+  overflow-wrap: anywhere;
+}
+
+.tema-opcion:hover:not(:disabled) {
+  background: rgba(40, 185, 232, 0.1);
+  border-color: var(--color-detalle);
+}
+
+.tema-opcion[aria-pressed="true"] {
+  background: rgba(40, 185, 232, 0.18);
+  border-color: var(--color-detalle);
+  box-shadow: 0 0 0 2px rgba(40, 185, 232, 0.3);
+}
+
+.tema-opcion:disabled {
+  cursor: default;
+  color: var(--color-texto);
+}
+
+.tema-opcion:disabled:not(.is-correcta):not(.is-incorrecta) {
+  opacity: 0.6;
+}
+
+.tema-opcion.is-correcta {
+  background: rgba(74, 222, 128, 0.14);
+  border-color: var(--color-ok);
+  box-shadow: none;
+}
+
+.tema-opcion.is-incorrecta {
+  background: rgba(255, 138, 138, 0.14);
+  border-color: var(--color-error);
+  box-shadow: none;
+}
+
+.tema-letra {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--degradado-boton);
+  border: 1px solid rgba(40, 185, 232, 0.5);
+  border-radius: 50%;
+}
+
+.tema-act-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.tema-act-acciones .btn {
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+.tema-comprobar:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  box-shadow: none;
+}
+
+.tema-feedback {
+  margin-top: 1rem;
+  padding: 0.85rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--vidrio-borde);
+  border-left-width: 4px;
+  border-radius: 12px;
+}
+
+.tema-feedback.ok {
+  border-left-color: var(--color-ok);
+}
+
+.tema-feedback.error {
+  border-left-color: var(--color-error);
+}
+
+.tema-feedback p {
+  max-width: none;
+  margin: 0;
+}
+
+.tema-feedback .tema-feedback-titulo {
+  margin-bottom: 0.3rem;
+  font-weight: 700;
+}
+
+.tema-feedback.ok .tema-feedback-titulo {
+  color: var(--color-ok);
+}
+
+.tema-feedback.error .tema-feedback-titulo {
+  color: var(--color-error);
+}
+
+html:not(.js) .tema-actividad {
+  display: none;
+}
+
+/* Pie del panel: enlaces y siguiente tema */
+.tema-pie {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tema-enlaces {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.tema-enlaces a {
+  font-weight: 600;
+  color: var(--color-detalle);
+}
+
+.tema-siguiente {
+  padding: 0.65rem 1.2rem;
+  font-size: 0.92rem;
+  text-align: center;
+}
+
+html:not(.js) .tema-siguiente {
+  display: none;
+}
+
+@media (min-width: 560px) {
+  .tema-lista {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .tema-card-desc {
+    display: block;
+  }
+
+  .tema-act-acciones .btn {
+    flex: 0 0 auto;
+  }
+}
+
+@media (min-width: 900px) {
+  .tema-zona--negocios .tema-lista {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .tema-panel-zona {
+    padding: 2rem;
+  }
+
+  .tema-cuerpo {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    align-items: start;
+    gap: 2rem;
+  }
+
+  .tema-pie {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .tema-enlaces {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.5rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .quiz-entra {
+  .tema-entra {
     animation: none;
+  }
+
+  .tema-card:hover {
+    translate: none;
   }
 }
 

@@ -85,18 +85,609 @@
     <!-- ============ SECCIONES BASE (contenido en desarrollo) ============ -->
     <section class="section" id="estudiantes">
       <div class="container">
-        <div class="glass-card">
+        <header class="section-heading">
           <h2>Estudiantes</h2>
-          <p>Esta sección tendrá recursos para que los estudiantes cuiden su vida digital. Está en desarrollo.</p>
+          <p>Tu vida digital es parte de tu vida diaria: redes, correo, plataformas de la universidad y compras en línea. Elige un tema, lee una situación real y comprueba lo que aprendiste.</p>
+        </header>
+
+        <div class="tema-zona tema-zona--estudiantes" data-temas>
+          <div class="tema-progreso">
+            <div class="tema-progreso-fila">
+              <span class="tema-progreso-texto" aria-live="polite">Actividades completadas: 0 de 6</span>
+              <button type="button" class="btn btn-ghost tema-reiniciar" hidden>Reiniciar actividades</button>
+            </div>
+            <progress class="tema-barra" max="6" value="0" aria-label="Actividades completadas"></progress>
+          </div>
+
+          <div class="tema-lista" role="tablist" aria-label="Temas para estudiantes">
+            <button type="button" class="tema-card" role="tab" id="est-tab-redes" aria-controls="est-panel-redes" aria-selected="true" tabindex="0">
+              <span class="tema-icono" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></span>
+              <span class="tema-card-titulo">Redes sociales</span>
+              <span class="tema-card-desc">Perfiles, mensajes y privacidad</span>
+              <span class="tema-estado"></span>
+            </button>
+            <button type="button" class="tema-card" role="tab" id="est-tab-cuentas" aria-controls="est-panel-cuentas" aria-selected="false" tabindex="-1">
+              <span class="tema-icono" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0"/><rect x="15" y="14" width="7" height="6" rx="1"/><path d="M17 14v-1.5a1.5 1.5 0 0 1 3 0V14"/></svg></span>
+              <span class="tema-card-titulo">Seguridad de cuentas</span>
+              <span class="tema-card-desc">Tu correo y tus accesos</span>
+              <span class="tema-estado"></span>
+            </button>
+            <button type="button" class="tema-card" role="tab" id="est-tab-claves" aria-controls="est-panel-claves" aria-selected="false" tabindex="-1">
+              <span class="tema-icono" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3M14 9l2 2"/></svg></span>
+              <span class="tema-card-titulo">Contraseñas y MFA</span>
+              <span class="tema-card-desc">Hábitos del día a día</span>
+              <span class="tema-estado"></span>
+            </button>
+            <button type="button" class="tema-card" role="tab" id="est-tab-estafas" aria-controls="est-panel-estafas" aria-selected="false" tabindex="-1">
+              <span class="tema-icono" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg></span>
+              <span class="tema-card-titulo">Phishing y estafas</span>
+              <span class="tema-card-desc">Becas, empleos y ofertas falsas</span>
+              <span class="tema-estado"></span>
+            </button>
+            <button type="button" class="tema-card" role="tab" id="est-tab-wifi" aria-controls="est-panel-wifi" aria-selected="false" tabindex="-1">
+              <span class="tema-icono" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19.5" r="1"/></svg></span>
+              <span class="tema-card-titulo">Wi-Fi públicas</span>
+              <span class="tema-card-desc">Cafeterías, plazas y centros</span>
+              <span class="tema-estado"></span>
+            </button>
+            <button type="button" class="tema-card" role="tab" id="est-tab-datos" aria-controls="est-panel-datos" aria-selected="false" tabindex="-1">
+              <span class="tema-icono" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/><path d="m3 3 18 18"/></svg></span>
+              <span class="tema-card-titulo">Información personal</span>
+              <span class="tema-card-desc">Qué compartir y qué no</span>
+              <span class="tema-estado"></span>
+            </button>
+          </div>
+
+          <div class="tema-panel-zona glass-card">
+          <article class="tema-panel is-activo" role="tabpanel" id="est-panel-redes" aria-labelledby="est-tab-redes" tabindex="-1">
+            <header class="tema-cabecera">
+              <span class="tema-icono" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></span>
+              <div>
+                <h3>Redes sociales</h3>
+                <p class="tema-lead">Tu perfil dice quién eres: protégelo para que nadie más hable en tu nombre.</p>
+              </div>
+            </header>
+            <div class="tema-cuerpo">
+              <div class="tema-info">
+                <div class="tema-situacion">
+                  <span class="tema-etiqueta">Situación cotidiana</span>
+                  <p>Una compañera te escribe por Instagram: «¿eres tú en este video?», con un enlace. Es su cuenta, pero fue hackeada: el atacante envía el mismo mensaje a todos sus contactos.</p>
+                </div>
+                <h4>Qué puedes hacer</h4>
+                <ul class="tema-checks"><li>Pon tu cuenta en privado o usa una lista de «mejores amigos» para lo personal, y oculta tu teléfono y tu correo.</li><li>Activa la verificación en dos pasos en cada red social.</li><li>Desconfía de enlaces y videos «sorpresa», incluso de amigos: pregúntales por otro medio si de verdad los enviaron.</li><li>Evita publicar en tiempo real tu ubicación, tu uniforme o tus horarios; comparte después.</li><li>Revisa de vez en cuando las sesiones abiertas y las apps conectadas, y elimina las que no reconozcas.</li></ul>
+              </div>
+              <div class="tema-actividad" data-actividad>
+                <span class="tema-etiqueta">Comprueba lo aprendido</span>
+                <p class="tema-act-pregunta" id="est-q-redes">Un amigo te envía por mensaje directo un enlace con el texto «¿eres tú en este video?». ¿Qué haces?</p>
+                <div class="tema-opciones" role="group" aria-labelledby="est-q-redes"><button type="button" class="tema-opcion" aria-pressed="false"><span class="tema-letra" aria-hidden="true">A</span><span>Abres el enlace para ver el video</span></button><button type="button" class="tema-opcion" data-correcta aria-pressed="false"><span class="tema-letra" aria-hidden="true">B</span><span>No lo abres y le preguntas por otro canal (llamada o en persona) si realmente te lo envió</span></button><button type="button" class="tema-opcion" aria-pressed="false"><span class="tema-letra" aria-hidden="true">C</span><span>Lo reenvías a tus contactos para ver si es real</span></button></div>
+                <div class="tema-act-acciones">
+                  <button type="button" class="btn btn-primary tema-comprobar" disabled>Comprobar respuesta</button>
+                  <button type="button" class="btn btn-ghost tema-reintentar" hidden>Intentar de nuevo</button>
+                </div>
+                <div class="tema-feedback" role="status" aria-live="polite" hidden>
+                  <p class="tema-feedback-titulo"></p>
+                  <p class="tema-feedback-texto"></p>
+                </div>
+                <p class="tema-explicacion" hidden>Cuando una cuenta es hackeada, el mensaje sale con el nombre de un amigo. Verificar por otro canal evita que caigas, y no reenviarlo evita que el engaño se propague.</p>
+              </div>
+            </div>
+            <footer class="tema-pie">
+              <div class="tema-enlaces"><a href="academy/mfa.html">Lección de MFA →</a></div>
+              <button type="button" class="btn btn-ghost tema-siguiente" data-siguiente>Siguiente: Seguridad de cuentas <span aria-hidden="true">→</span></button>
+            </footer>
+          </article>
+          <article class="tema-panel" role="tabpanel" id="est-panel-cuentas" aria-labelledby="est-tab-cuentas" tabindex="-1">
+            <header class="tema-cabecera">
+              <span class="tema-icono" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0"/><rect x="15" y="14" width="7" height="6" rx="1"/><path d="M17 14v-1.5a1.5 1.5 0 0 1 3 0V14"/></svg></span>
+              <div>
+                <h3>Seguridad de cuentas</h3>
+                <p class="tema-lead">Tu correo es la llave maestra: quien lo controla puede recuperar casi todas tus demás cuentas.</p>
+              </div>
+            </header>
+            <div class="tema-cuerpo">
+              <div class="tema-info">
+                <div class="tema-situacion">
+                  <span class="tema-etiqueta">Situación cotidiana</span>
+                  <p>Usas el mismo correo para la universidad, tus redes y tus juegos. Si alguien entra a ese correo, puede pulsar «olvidé mi contraseña» en todas las demás cuentas.</p>
+                </div>
+                <h4>Qué puedes hacer</h4>
+                <ul class="tema-checks"><li>Protege primero tu correo principal con una contraseña única y verificación en dos pasos.</li><li>Usa un correo alterno para registros poco importantes y promociones.</li><li>Cierra sesión en computadoras compartidas (laboratorios, cibercafés) y no marques «recordarme».</li><li>Completa las opciones de recuperación (correo alterno y teléfono) para poder recuperar tu cuenta si la pierdes.</li><li>Si te llega un aviso de inicio de sesión que no reconoces, cambia la contraseña desde la app o el sitio oficial.</li></ul>
+              </div>
+              <div class="tema-actividad" data-actividad>
+                <span class="tema-etiqueta">Comprueba lo aprendido</span>
+                <p class="tema-act-pregunta" id="est-q-cuentas">Terminas un trabajo en una computadora del laboratorio de la universidad. ¿Qué haces antes de irte?</p>
+                <div class="tema-opciones" role="group" aria-labelledby="est-q-cuentas"><button type="button" class="tema-opcion" aria-pressed="false"><span class="tema-letra" aria-hidden="true">A</span><span>Cierras la pestaña del navegador, nada más</span></button><button type="button" class="tema-opcion" data-correcta aria-pressed="false"><span class="tema-letra" aria-hidden="true">B</span><span>Cierras sesión en todas tus cuentas y no guardas contraseñas en el navegador</span></button><button type="button" class="tema-opcion" aria-pressed="false"><span class="tema-letra" aria-hidden="true">C</span><span>Dejas la sesión abierta por si vuelves mañana</span></button></div>
+                <div class="tema-act-acciones">
+                  <button type="button" class="btn btn-primary tema-comprobar" disabled>Comprobar respuesta</button>
+                  <button type="button" class="btn btn-ghost tema-reintentar" hidden>Intentar de nuevo</button>
+                </div>
+                <div class="tema-feedback" role="status" aria-live="polite" hidden>
+                  <p class="tema-feedback-titulo"></p>
+                  <p class="tema-feedback-texto"></p>
+                </div>
+                <p class="tema-explicacion" hidden>Cerrar la pestaña no cierra la sesión. En equipos compartidos, cierra sesión y evita guardar contraseñas para que la siguiente persona no entre a tus cuentas.</p>
+              </div>
+            </div>
+            <footer class="tema-pie">
+              <div class="tema-enlaces"></div>
+              <button type="button" class="btn btn-ghost tema-siguiente" data-siguiente>Siguiente: Contraseñas y MFA <span aria-hidden="true">→</span></button>
+            </footer>
+          </article>
+          <article class="tema-panel" role="tabpanel" id="est-panel-claves" aria-labelledby="est-tab-claves" tabindex="-1">
+            <header class="tema-cabecera">
+              <span class="tema-icono" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3M14 9l2 2"/></svg></span>
+              <div>
+                <h3>Contraseñas y MFA</h3>
+                <p class="tema-lead">Dos hábitos que bloquean la mayoría de los robos de cuentas: claves distintas y verificación en dos pasos.</p>
+              </div>
+            </header>
+            <div class="tema-cuerpo">
+              <div class="tema-info">
+                <div class="tema-situacion">
+                  <span class="tema-etiqueta">Situación cotidiana</span>
+                  <p>Un amigo te pide prestada tu cuenta de streaming y le das la contraseña. Semanas después alguien más entra: la clave circuló por un grupo de chat.</p>
+                </div>
+                <h4>Qué puedes hacer</h4>
+                <ul class="tema-checks"><li>Compartir una contraseña es perderla de vista: usa los perfiles o planes familiares que ofrece cada servicio.</li><li>Activa MFA al menos en tu correo, tus redes y la plataforma de tu universidad.</li><li>Los códigos de verificación son personales: ninguna persona ni empresa legítima te los pide.</li><li>Guarda los códigos de recuperación fuera del teléfono, por ejemplo impresos en un lugar seguro.</li></ul>
+              </div>
+              <div class="tema-actividad" data-actividad>
+                <span class="tema-etiqueta">Comprueba lo aprendido</span>
+                <p class="tema-act-pregunta" id="est-q-claves">Verdadero o falso: si un amigo de confianza te pide el código de 6 dígitos que te llegó por SMS «para ayudarte a entrar», es seguro dárselo.</p>
+                <div class="tema-opciones" role="group" aria-labelledby="est-q-claves"><button type="button" class="tema-opcion" aria-pressed="false"><span class="tema-letra" aria-hidden="true">A</span><span>Verdadero</span></button><button type="button" class="tema-opcion" data-correcta aria-pressed="false"><span class="tema-letra" aria-hidden="true">B</span><span>Falso</span></button></div>
+                <div class="tema-act-acciones">
+                  <button type="button" class="btn btn-primary tema-comprobar" disabled>Comprobar respuesta</button>
+                  <button type="button" class="btn btn-ghost tema-reintentar" hidden>Intentar de nuevo</button>
+                </div>
+                <div class="tema-feedback" role="status" aria-live="polite" hidden>
+                  <p class="tema-feedback-titulo"></p>
+                  <p class="tema-feedback-texto"></p>
+                </div>
+                <p class="tema-explicacion" hidden>Falso. Con ese código cualquiera puede entrar a tu cuenta, aunque quien lo pida sea un amigo: su cuenta pudo ser hackeada o alguien puede estar haciéndose pasar por él.</p>
+              </div>
+            </div>
+            <footer class="tema-pie">
+              <div class="tema-enlaces"><a href="academy/contrasenas.html">Lección de contraseñas →</a><a href="academy/mfa.html">Lección de MFA →</a></div>
+              <button type="button" class="btn btn-ghost tema-siguiente" data-siguiente>Siguiente: Phishing y estafas <span aria-hidden="true">→</span></button>
+            </footer>
+          </article>
+          <article class="tema-panel" role="tabpanel" id="est-panel-estafas" aria-labelledby="est-tab-estafas" tabindex="-1">
+            <header class="tema-cabecera">
+              <span class="tema-icono" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg></span>
+              <div>
+                <h3>Phishing y estafas</h3>
+                <p class="tema-lead">Las estafas apuntan a estudiantes con becas, empleos y ofertas «únicas».</p>
+              </div>
+            </header>
+            <div class="tema-cuerpo">
+              <div class="tema-info">
+                <div class="tema-situacion">
+                  <span class="tema-etiqueta">Situación cotidiana</span>
+                  <p>Te escribe un número desconocido: «Ganaste una beca de RD$20,000. Entra al enlace y confirma tu cédula y tu cuenta bancaria». Nadie te avisó de ninguna beca.</p>
+                </div>
+                <h4>Qué puedes hacer</h4>
+                <ul class="tema-checks"><li>Verifica becas, ofertas de empleo y premios en el sitio oficial de la institución, no en el enlace del mensaje.</li><li>Desconfía de todo lo que pida pagar para recibir algo («tasa de inscripción», «gastos de envío»).</li><li>En compras por redes sociales, prefiere métodos de pago con protección y duda de los precios demasiado bajos.</li><li>Ante una estafa: no respondas, guarda una captura, bloquea el número y repórtalo en la plataforma.</li></ul>
+              </div>
+              <div class="tema-actividad" data-actividad>
+                <span class="tema-etiqueta">Comprueba lo aprendido</span>
+                <p class="tema-act-pregunta" id="est-q-estafas">Te ofrecen un trabajo remoto muy bien pagado, pero piden que pagues RD$1,500 por «materiales de capacitación» antes de empezar. ¿Qué indica esto?</p>
+                <div class="tema-opciones" role="group" aria-labelledby="est-q-estafas"><button type="button" class="tema-opcion" aria-pressed="false"><span class="tema-letra" aria-hidden="true">A</span><span>Es normal: así funcionan las empresas serias</span></button><button type="button" class="tema-opcion" data-correcta aria-pressed="false"><span class="tema-letra" aria-hidden="true">B</span><span>Es una señal de estafa: una empresa seria no cobra por darte trabajo</span></button><button type="button" class="tema-opcion" aria-pressed="false"><span class="tema-letra" aria-hidden="true">C</span><span>Es seguro si te envían un recibo por WhatsApp</span></button></div>
+                <div class="tema-act-acciones">
+                  <button type="button" class="btn btn-primary tema-comprobar" disabled>Comprobar respuesta</button>
+                  <button type="button" class="btn btn-ghost tema-reintentar" hidden>Intentar de nuevo</button>
+                </div>
+                <div class="tema-feedback" role="status" aria-live="polite" hidden>
+                  <p class="tema-feedback-titulo"></p>
+                  <p class="tema-feedback-texto"></p>
+                </div>
+                <p class="tema-explicacion" hidden>Pedir dinero por adelantado a quien busca empleo es una de las estafas más comunes. Un recibo enviado por chat no demuestra nada.</p>
+              </div>
+            </div>
+            <footer class="tema-pie">
+              <div class="tema-enlaces"><a href="phishing-sim/index.html">Practica en el Phishing Simulator →</a><a href="academy/phishing.html">Lección de phishing →</a></div>
+              <button type="button" class="btn btn-ghost tema-siguiente" data-siguiente>Siguiente: Wi-Fi públicas <span aria-hidden="true">→</span></button>
+            </footer>
+          </article>
+          <article class="tema-panel" role="tabpanel" id="est-panel-wifi" aria-labelledby="est-tab-wifi" tabindex="-1">
+            <header class="tema-cabecera">
+              <span class="tema-icono" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19.5" r="1"/></svg></span>
+              <div>
+                <h3>Wi-Fi públicas</h3>
+                <p class="tema-lead">El Wi-Fi gratis es cómodo, pero no sabes quién más está conectado ni quién lo administra.</p>
+              </div>
+            </header>
+            <div class="tema-cuerpo">
+              <div class="tema-info">
+                <div class="tema-situacion">
+                  <span class="tema-etiqueta">Situación cotidiana</span>
+                  <p>En una plaza ves dos redes: «Plaza_Free» y «Plaza_Free_WiFi». Te conectas a la segunda porque tiene mejor señal, pero podría ser una red falsa creada para espiar lo que haces.</p>
+                </div>
+                <h4>Qué puedes hacer</h4>
+                <ul class="tema-checks"><li>Pregunta al personal el nombre exacto de la red antes de conectarte.</li><li>Evita operaciones sensibles (banca, compras, exámenes en línea) en redes públicas: usa tus datos móviles.</li><li>Entra solo a sitios con https y no ignores los avisos de certificado del navegador.</li><li>Desactiva la conexión automática a redes abiertas y «olvida» la red cuando termines.</li><li>Una VPN de un proveedor confiable ayuda, pero no sustituye a las demás medidas.</li></ul>
+              </div>
+              <div class="tema-actividad" data-actividad>
+                <span class="tema-etiqueta">Comprueba lo aprendido</span>
+                <p class="tema-act-pregunta" id="est-q-wifi">Necesitas pagar una compra en línea y solo tienes el Wi-Fi gratuito de la cafetería. ¿Qué es lo más seguro?</p>
+                <div class="tema-opciones" role="group" aria-labelledby="est-q-wifi"><button type="button" class="tema-opcion" aria-pressed="false"><span class="tema-letra" aria-hidden="true">A</span><span>Pagar normalmente, el candado del navegador basta</span></button><button type="button" class="tema-opcion" data-correcta aria-pressed="false"><span class="tema-letra" aria-hidden="true">B</span><span>Usar tus datos móviles o esperar a una red de confianza</span></button><button type="button" class="tema-opcion" aria-pressed="false"><span class="tema-letra" aria-hidden="true">C</span><span>Desactivar el antivirus para que cargue más rápido</span></button></div>
+                <div class="tema-act-acciones">
+                  <button type="button" class="btn btn-primary tema-comprobar" disabled>Comprobar respuesta</button>
+                  <button type="button" class="btn btn-ghost tema-reintentar" hidden>Intentar de nuevo</button>
+                </div>
+                <div class="tema-feedback" role="status" aria-live="polite" hidden>
+                  <p class="tema-feedback-titulo"></p>
+                  <p class="tema-feedback-texto"></p>
+                </div>
+                <p class="tema-explicacion" hidden>En una red pública no controlas quién puede observar el tráfico. Para pagos y banca, tus datos móviles o una red de confianza son mucho más seguros.</p>
+              </div>
+            </div>
+            <footer class="tema-pie">
+              <div class="tema-enlaces"></div>
+              <button type="button" class="btn btn-ghost tema-siguiente" data-siguiente>Siguiente: Información personal <span aria-hidden="true">→</span></button>
+            </footer>
+          </article>
+          <article class="tema-panel" role="tabpanel" id="est-panel-datos" aria-labelledby="est-tab-datos" tabindex="-1">
+            <header class="tema-cabecera">
+              <span class="tema-icono" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/><path d="m3 3 18 18"/></svg></span>
+              <div>
+                <h3>Información personal</h3>
+                <p class="tema-lead">Tu nombre completo, tus documentos, tus fotos y tu ubicación valen mucho para quien quiere suplantarte.</p>
+              </div>
+            </header>
+            <div class="tema-cuerpo">
+              <div class="tema-info">
+                <div class="tema-situacion">
+                  <span class="tema-etiqueta">Situación cotidiana</span>
+                  <p>Publicas la foto de tu carné estudiantil: «¡por fin soy universitario!». Con ese nombre, número y foto, alguien podría abrir cuentas falsas o engañar a tu familia haciéndose pasar por ti.</p>
+                </div>
+                <h4>Qué puedes hacer</h4>
+                <ul class="tema-checks"><li>Piensa antes de publicar: documentos, boletos, tarjetas y carnés no se suben, ni siquiera tapados a medias.</li><li>Da solo los datos necesarios cuando una app o formulario te los pida, y desconfía de los que piden de más.</li><li>Revisa los permisos de tus apps (ubicación, micrófono, contactos, cámara) y quita los que no necesitan.</li><li>No envíes fotos de documentos por chat; si es indispensable, usa un canal oficial.</li><li>Busca tu nombre en internet de vez en cuando para ver qué información tuya es pública.</li></ul>
+              </div>
+              <div class="tema-actividad" data-actividad>
+                <span class="tema-etiqueta">Comprueba lo aprendido</span>
+                <p class="tema-act-pregunta" id="est-q-datos">Una app de linterna te pide acceso a tus contactos y a tu ubicación. ¿Qué haces?</p>
+                <div class="tema-opciones" role="group" aria-labelledby="est-q-datos"><button type="button" class="tema-opcion" aria-pressed="false"><span class="tema-letra" aria-hidden="true">A</span><span>Aceptas, no pasa nada</span></button><button type="button" class="tema-opcion" data-correcta aria-pressed="false"><span class="tema-letra" aria-hidden="true">B</span><span>Niegas esos permisos: una linterna no los necesita</span></button><button type="button" class="tema-opcion" aria-pressed="false"><span class="tema-letra" aria-hidden="true">C</span><span>Aceptas, pero solo la usas de noche</span></button></div>
+                <div class="tema-act-acciones">
+                  <button type="button" class="btn btn-primary tema-comprobar" disabled>Comprobar respuesta</button>
+                  <button type="button" class="btn btn-ghost tema-reintentar" hidden>Intentar de nuevo</button>
+                </div>
+                <div class="tema-feedback" role="status" aria-live="polite" hidden>
+                  <p class="tema-feedback-titulo"></p>
+                  <p class="tema-feedback-texto"></p>
+                </div>
+                <p class="tema-explicacion" hidden>Una app solo debe pedir los permisos que necesita para funcionar. Si pide más, es una señal de que recoge datos para otros fines.</p>
+              </div>
+            </div>
+            <footer class="tema-pie">
+              <div class="tema-enlaces"></div>
+              <button type="button" class="btn btn-ghost tema-siguiente" data-siguiente>Volver al primero: Redes sociales <span aria-hidden="true">→</span></button>
+            </footer>
+          </article>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="section section-alt" id="negocios">
       <div class="container">
-        <div class="glass-card">
+        <header class="section-heading">
           <h2>Negocios</h2>
-          <p>Esta sección tendrá orientación de protección digital para pequeños negocios. Está en desarrollo.</p>
+          <p>Un pequeño negocio guarda dinero, datos de clientes y accesos importantes, y muchas veces no tiene un equipo de informática. Estos casos reales muestran cómo ocurren los problemas y cómo evitarlos.</p>
+        </header>
+
+        <div class="tema-zona tema-zona--negocios" data-temas>
+          <div class="tema-progreso">
+            <div class="tema-progreso-fila">
+              <span class="tema-progreso-texto" aria-live="polite">Actividades completadas: 0 de 7</span>
+              <button type="button" class="btn btn-ghost tema-reiniciar" hidden>Reiniciar actividades</button>
+            </div>
+            <progress class="tema-barra" max="7" value="0" aria-label="Actividades completadas"></progress>
+          </div>
+
+          <div class="tema-lista" role="tablist" aria-label="Temas para negocios">
+            <button type="button" class="tema-card" role="tab" id="neg-tab-clientes" aria-controls="neg-panel-clientes" aria-selected="true" tabindex="0">
+              <span class="tema-icono" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M6 16a3 3 0 0 1 6 0M14 10h4M14 14h3"/></svg></span>
+              <span class="tema-card-titulo">Datos de clientes</span>
+              <span class="tema-card-desc">Guardar y proteger información</span>
+              <span class="tema-estado"></span>
+            </button>
+            <button type="button" class="tema-card" role="tab" id="neg-tab-correo" aria-controls="neg-panel-correo" aria-selected="false" tabindex="-1">
+              <span class="tema-icono" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+              <span class="tema-card-titulo">Correo empresarial</span>
+              <span class="tema-card-desc">Cuentas, accesos y reenvíos</span>
+              <span class="tema-estado"></span>
+            </button>
+            <button type="button" class="tema-card" role="tab" id="neg-tab-fraudes" aria-controls="neg-panel-fraudes" aria-selected="false" tabindex="-1">
+              <span class="tema-icono" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.2 7.8 8 9 4.8-1.2 8-4.5 8-9V6l-8-3Z"/><path d="M12 8v4M12 15.5h.01"/></svg></span>
+              <span class="tema-card-titulo">Fraudes y phishing</span>
+              <span class="tema-card-desc">Pagos falsos y engaños a negocios</span>
+              <span class="tema-estado"></span>
+            </button>
+            <button type="button" class="tema-card" role="tab" id="neg-tab-claves-neg" aria-controls="neg-panel-claves-neg" aria-selected="false" tabindex="-1">
+              <span class="tema-icono" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3M14 9l2 2"/></svg></span>
+              <span class="tema-card-titulo">Contraseñas y MFA</span>
+              <span class="tema-card-desc">Accesos del equipo</span>
+              <span class="tema-estado"></span>
+            </button>
+            <button type="button" class="tema-card" role="tab" id="neg-tab-respaldos" aria-controls="neg-panel-respaldos" aria-selected="false" tabindex="-1">
+              <span class="tema-icono" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span>
+              <span class="tema-card-titulo">Copias de seguridad</span>
+              <span class="tema-card-desc">Recuperarte tras un desastre</span>
+              <span class="tema-estado"></span>
+            </button>
+            <button type="button" class="tema-card" role="tab" id="neg-tab-equipo" aria-controls="neg-panel-equipo" aria-selected="false" tabindex="-1">
+              <span class="tema-icono" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.5a5 5 0 0 1 4.5 5"/></svg></span>
+              <span class="tema-card-titulo">Buenas prácticas para empleados</span>
+              <span class="tema-card-desc">Reglas simples para todo el equipo</span>
+              <span class="tema-estado"></span>
+            </button>
+            <button type="button" class="tema-card" role="tab" id="neg-tab-redes-neg" aria-controls="neg-panel-redes-neg" aria-selected="false" tabindex="-1">
+              <span class="tema-icono" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span>
+              <span class="tema-card-titulo">Dispositivos y redes</span>
+              <span class="tema-card-desc">Equipos conectados del negocio</span>
+              <span class="tema-estado"></span>
+            </button>
+          </div>
+
+          <div class="tema-panel-zona glass-card">
+          <article class="tema-panel is-activo" role="tabpanel" id="neg-panel-clientes" aria-labelledby="neg-tab-clientes" tabindex="-1">
+            <header class="tema-cabecera">
+              <span class="tema-icono" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M6 16a3 3 0 0 1 6 0M14 10h4M14 14h3"/></svg></span>
+              <div>
+                <h3>Datos de clientes</h3>
+                <p class="tema-lead">Los datos de tus clientes son un activo, pero también una responsabilidad.</p>
+              </div>
+            </header>
+            <div class="tema-cuerpo">
+              <div class="tema-info">
+                <div class="tema-situacion">
+                  <span class="tema-etiqueta">Caso realista</span>
+                  <p>Una tienda de ropa guarda en un cuaderno y en el WhatsApp personal de la dueña los teléfonos y compras de sus clientas. Un día pierde el celular y varias clientas empiezan a recibir mensajes de estafadores que mencionan sus compras recientes.</p>
+                </div>
+                <h4>Cómo prevenirlo</h4>
+                <ul class="tema-checks"><li>Pide solo los datos que realmente necesitas, por ejemplo nombre y un contacto.</li><li>Guárdalos en un solo lugar protegido (archivo con contraseña o carpeta en la nube con acceso restringido), no en chats ni cuadernos.</li><li>Da acceso solo a quien lo necesita y quítalo cuando alguien deja el negocio.</li><li>Activa el bloqueo de pantalla y el borrado remoto en los celulares que contengan datos del negocio.</li><li>Nunca pidas ni guardes datos completos de tarjetas: usa medios de pago reconocidos.</li><li>Si ocurre una filtración, avisa a tus clientes afectados para que puedan protegerse.</li></ul>
+              </div>
+              <div class="tema-actividad" data-actividad>
+                <span class="tema-etiqueta">Comprueba lo aprendido</span>
+                <p class="tema-act-pregunta" id="neg-q-clientes">¿Cuál es la forma más segura de guardar la lista de clientes de tu negocio?</p>
+                <div class="tema-opciones" role="group" aria-labelledby="neg-q-clientes"><button type="button" class="tema-opcion" aria-pressed="false"><span class="tema-letra" aria-hidden="true">A</span><span>En un chat de WhatsApp contigo mismo</span></button><button type="button" class="tema-opcion" data-correcta aria-pressed="false"><span class="tema-letra" aria-hidden="true">B</span><span>En un archivo protegido con contraseña y con acceso solo para quien lo necesita</span></button><button type="button" class="tema-opcion" aria-pressed="false"><span class="tema-letra" aria-hidden="true">C</span><span>En una nota del celular sin bloqueo de pantalla</span></button></div>
+                <div class="tema-act-acciones">
+                  <button type="button" class="btn btn-primary tema-comprobar" disabled>Comprobar respuesta</button>
+                  <button type="button" class="btn btn-ghost tema-reintentar" hidden>Intentar de nuevo</button>
+                </div>
+                <div class="tema-feedback" role="status" aria-live="polite" hidden>
+                  <p class="tema-feedback-titulo"></p>
+                  <p class="tema-feedback-texto"></p>
+                </div>
+                <p class="tema-explicacion" hidden>Un solo lugar protegido y con acceso limitado reduce el riesgo si se pierde un dispositivo o alguien se va del negocio. Los chats y notas sin bloqueo quedan expuestos.</p>
+              </div>
+            </div>
+            <footer class="tema-pie">
+              <div class="tema-enlaces"><a href="academy/negocios.html#que-proteger">Empieza por saber qué datos tienes →</a></div>
+              <button type="button" class="btn btn-ghost tema-siguiente" data-siguiente>Siguiente: Correo empresarial <span aria-hidden="true">→</span></button>
+            </footer>
+          </article>
+          <article class="tema-panel" role="tabpanel" id="neg-panel-correo" aria-labelledby="neg-tab-correo" tabindex="-1">
+            <header class="tema-cabecera">
+              <span class="tema-icono" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+              <div>
+                <h3>Correo empresarial</h3>
+                <p class="tema-lead">El correo del negocio es la puerta a facturas, pagos y proveedores.</p>
+              </div>
+            </header>
+            <div class="tema-cuerpo">
+              <div class="tema-info">
+                <div class="tema-situacion">
+                  <span class="tema-etiqueta">Caso realista</span>
+                  <p>Una distribuidora usa una cuenta de correo gratuita compartida por tres empleados. Alguien adivina la contraseña y, desde ahí, escribe a los clientes pidiendo que paguen sus facturas a otra cuenta.</p>
+                </div>
+                <h4>Cómo prevenirlo</h4>
+                <ul class="tema-checks"><li>Da a cada persona su propia cuenta y, si puedes, usa un dominio propio para que tus clientes reconozcan tu correo.</li><li>Exige verificación en dos pasos en el correo del negocio.</li><li>Revisa de vez en cuando las reglas de reenvío automático: los atacantes las crean para copiar tus mensajes.</li><li>Mira los avisos de inicio de sesión y los dispositivos conectados.</li><li>Separa el correo personal del empresarial.</li><li>Confirma por otro canal cualquier cambio de datos de pago.</li></ul>
+              </div>
+              <div class="tema-actividad" data-actividad>
+                <span class="tema-etiqueta">Comprueba lo aprendido</span>
+                <p class="tema-act-pregunta" id="neg-q-correo">Notas que desde tu correo se enviaron mensajes que no escribiste. ¿Cuál es el primer paso?</p>
+                <div class="tema-opciones" role="group" aria-labelledby="neg-q-correo"><button type="button" class="tema-opcion" aria-pressed="false"><span class="tema-letra" aria-hidden="true">A</span><span>Esperar a ver si se detiene</span></button><button type="button" class="tema-opcion" data-correcta aria-pressed="false"><span class="tema-letra" aria-hidden="true">B</span><span>Cambiar la contraseña desde un dispositivo seguro, cerrar todas las sesiones y revisar las reglas de reenvío</span></button><button type="button" class="tema-opcion" aria-pressed="false"><span class="tema-letra" aria-hidden="true">C</span><span>Borrar los mensajes enviados y seguir trabajando</span></button></div>
+                <div class="tema-act-acciones">
+                  <button type="button" class="btn btn-primary tema-comprobar" disabled>Comprobar respuesta</button>
+                  <button type="button" class="btn btn-ghost tema-reintentar" hidden>Intentar de nuevo</button>
+                </div>
+                <div class="tema-feedback" role="status" aria-live="polite" hidden>
+                  <p class="tema-feedback-titulo"></p>
+                  <p class="tema-feedback-texto"></p>
+                </div>
+                <p class="tema-explicacion" hidden>Hay que sacar al intruso: nueva contraseña, sesiones cerradas y reglas de reenvío revisadas. Borrar los mensajes no resuelve el acceso.</p>
+              </div>
+            </div>
+            <footer class="tema-pie">
+              <div class="tema-enlaces"><a href="academy/mfa.html">Lección de MFA →</a></div>
+              <button type="button" class="btn btn-ghost tema-siguiente" data-siguiente>Siguiente: Fraudes y phishing <span aria-hidden="true">→</span></button>
+            </footer>
+          </article>
+          <article class="tema-panel" role="tabpanel" id="neg-panel-fraudes" aria-labelledby="neg-tab-fraudes" tabindex="-1">
+            <header class="tema-cabecera">
+              <span class="tema-icono" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.2 7.8 8 9 4.8-1.2 8-4.5 8-9V6l-8-3Z"/><path d="M12 8v4M12 15.5h.01"/></svg></span>
+              <div>
+                <h3>Fraudes y phishing</h3>
+                <p class="tema-lead">Los estafadores buscan negocios que pagan rápido y verifican poco.</p>
+              </div>
+            </header>
+            <div class="tema-cuerpo">
+              <div class="tema-info">
+                <div class="tema-situacion">
+                  <span class="tema-etiqueta">Caso realista</span>
+                  <p>Un cliente «paga» por transferencia y envía la captura del comprobante, pidiendo el pedido hoy mismo. El negocio entrega la mercancía sin mirar su cuenta: el comprobante era falso y el dinero nunca llegó.</p>
+                </div>
+                <h4>Cómo prevenirlo</h4>
+                <ul class="tema-checks"><li>Confirma el pago en tu cuenta o app del banco antes de entregar: una captura no es prueba.</li><li>Para cambios de cuenta o pagos grandes, verifica con una llamada a un número que ya conocías.</li><li>Define quién autoriza los pagos y exige doble aprobación a partir de cierto monto.</li><li>Desconfía de pedidos urgentes, sobrepagos con «devolución de la diferencia» y compras grandes con pagos raros.</li><li>Enseña a tu equipo a reportar mensajes sospechosos y practiquen juntos.</li></ul>
+              </div>
+              <div class="tema-actividad" data-actividad>
+                <span class="tema-etiqueta">Comprueba lo aprendido</span>
+                <p class="tema-act-pregunta" id="neg-q-fraudes">Un cliente te envía la captura de una transferencia y pide el pedido hoy mismo. ¿Qué haces?</p>
+                <div class="tema-opciones" role="group" aria-labelledby="neg-q-fraudes"><button type="button" class="tema-opcion" aria-pressed="false"><span class="tema-letra" aria-hidden="true">A</span><span>Entregas: la captura es suficiente</span></button><button type="button" class="tema-opcion" data-correcta aria-pressed="false"><span class="tema-letra" aria-hidden="true">B</span><span>Compruebas que el dinero esté realmente en tu cuenta antes de entregar</span></button><button type="button" class="tema-opcion" aria-pressed="false"><span class="tema-letra" aria-hidden="true">C</span><span>Le pides que te mande otra captura</span></button></div>
+                <div class="tema-act-acciones">
+                  <button type="button" class="btn btn-primary tema-comprobar" disabled>Comprobar respuesta</button>
+                  <button type="button" class="btn btn-ghost tema-reintentar" hidden>Intentar de nuevo</button>
+                </div>
+                <div class="tema-feedback" role="status" aria-live="polite" hidden>
+                  <p class="tema-feedback-titulo"></p>
+                  <p class="tema-feedback-texto"></p>
+                </div>
+                <p class="tema-explicacion" hidden>Las capturas se falsifican con facilidad. Solo el saldo en tu propia cuenta demuestra que el pago existe.</p>
+              </div>
+            </div>
+            <footer class="tema-pie">
+              <div class="tema-enlaces"><a href="phishing-sim/index.html">Practica en el Phishing Simulator →</a><a href="academy/phishing.html">Lección de phishing →</a></div>
+              <button type="button" class="btn btn-ghost tema-siguiente" data-siguiente>Siguiente: Contraseñas y MFA <span aria-hidden="true">→</span></button>
+            </footer>
+          </article>
+          <article class="tema-panel" role="tabpanel" id="neg-panel-claves-neg" aria-labelledby="neg-tab-claves-neg" tabindex="-1">
+            <header class="tema-cabecera">
+              <span class="tema-icono" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3M14 9l2 2"/></svg></span>
+              <div>
+                <h3>Contraseñas y MFA</h3>
+                <p class="tema-lead">Las contraseñas compartidas y olvidadas son una de las brechas más frecuentes en negocios pequeños.</p>
+              </div>
+            </header>
+            <div class="tema-cuerpo">
+              <div class="tema-info">
+                <div class="tema-situacion">
+                  <span class="tema-etiqueta">Caso realista</span>
+                  <p>Una clínica comparte una sola contraseña de su agenda en línea entre cinco personas, escrita en un papel pegado al monitor. Cuando una recepcionista renuncia nadie la cambia, y semanas después alguien accede a los datos de los pacientes.</p>
+                </div>
+                <h4>Cómo prevenirlo</h4>
+                <ul class="tema-checks"><li>Una cuenta por persona: así sabes quién hizo qué y puedes cerrar un acceso sin afectar a los demás.</li><li>Si el equipo comparte accesos, usa un gestor de contraseñas con acceso compartido y controlado.</li><li>Activa MFA en el correo, la banca, la facturación y las redes del negocio.</li><li>Cuando alguien se va, revoca sus accesos y cambia las contraseñas compartidas ese mismo día.</li><li>Nada de papelitos con contraseñas pegados al monitor.</li></ul>
+              </div>
+              <div class="tema-actividad" data-actividad>
+                <span class="tema-etiqueta">Comprueba lo aprendido</span>
+                <p class="tema-act-pregunta" id="neg-q-claves-neg">Verdadero o falso: es más práctico y igual de seguro que todo el equipo use la misma contraseña para el sistema de facturación.</p>
+                <div class="tema-opciones" role="group" aria-labelledby="neg-q-claves-neg"><button type="button" class="tema-opcion" aria-pressed="false"><span class="tema-letra" aria-hidden="true">A</span><span>Verdadero</span></button><button type="button" class="tema-opcion" data-correcta aria-pressed="false"><span class="tema-letra" aria-hidden="true">B</span><span>Falso</span></button></div>
+                <div class="tema-act-acciones">
+                  <button type="button" class="btn btn-primary tema-comprobar" disabled>Comprobar respuesta</button>
+                  <button type="button" class="btn btn-ghost tema-reintentar" hidden>Intentar de nuevo</button>
+                </div>
+                <div class="tema-feedback" role="status" aria-live="polite" hidden>
+                  <p class="tema-feedback-titulo"></p>
+                  <p class="tema-feedback-texto"></p>
+                </div>
+                <p class="tema-explicacion" hidden>Falso. Con una contraseña compartida no sabes quién entró ni puedes retirar el acceso de una persona sin cambiarla para todos.</p>
+              </div>
+            </div>
+            <footer class="tema-pie">
+              <div class="tema-enlaces"><a href="academy/contrasenas.html">Lección de contraseñas →</a><a href="academy/mfa.html">Lección de MFA →</a></div>
+              <button type="button" class="btn btn-ghost tema-siguiente" data-siguiente>Siguiente: Copias de seguridad <span aria-hidden="true">→</span></button>
+            </footer>
+          </article>
+          <article class="tema-panel" role="tabpanel" id="neg-panel-respaldos" aria-labelledby="neg-tab-respaldos" tabindex="-1">
+            <header class="tema-cabecera">
+              <span class="tema-icono" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span>
+              <div>
+                <h3>Copias de seguridad</h3>
+                <p class="tema-lead">Una copia de seguridad solo sirve si existe cuando la necesitas y si sabes restaurarla.</p>
+              </div>
+            </header>
+            <div class="tema-cuerpo">
+              <div class="tema-info">
+                <div class="tema-situacion">
+                  <span class="tema-etiqueta">Caso realista</span>
+                  <p>Una imprenta pierde todos sus diseños y su facturación cuando falla el disco de su única computadora. Tenía una copia, pero estaba en el mismo equipo y se perdió junto con todo lo demás.</p>
+                </div>
+                <h4>Cómo prevenirlo</h4>
+                <ul class="tema-checks"><li>Decide qué respaldar: facturas, base de clientes, diseños y cualquier archivo que no puedas rehacer.</li><li>Automatiza las copias para que no dependan de la memoria de nadie.</li><li>Guarda al menos una copia desconectada o fuera del local, para que un ransomware o un incendio no la alcancen.</li><li>Prueba cada cierto tiempo que puedes restaurar un archivo de la copia.</li><li>Protege las copias con contraseña, sobre todo si salen del local.</li></ul>
+              </div>
+              <div class="tema-actividad" data-actividad>
+                <span class="tema-etiqueta">Comprueba lo aprendido</span>
+                <p class="tema-act-pregunta" id="neg-q-respaldos">¿Dónde NO deberías guardar la única copia de seguridad de tus archivos?</p>
+                <div class="tema-opciones" role="group" aria-labelledby="neg-q-respaldos"><button type="button" class="tema-opcion" aria-pressed="false"><span class="tema-letra" aria-hidden="true">A</span><span>En un servicio en la nube</span></button><button type="button" class="tema-opcion" data-correcta aria-pressed="false"><span class="tema-letra" aria-hidden="true">B</span><span>En el mismo equipo donde están los archivos originales</span></button><button type="button" class="tema-opcion" aria-pressed="false"><span class="tema-letra" aria-hidden="true">C</span><span>En un disco externo guardado en otro lugar</span></button></div>
+                <div class="tema-act-acciones">
+                  <button type="button" class="btn btn-primary tema-comprobar" disabled>Comprobar respuesta</button>
+                  <button type="button" class="btn btn-ghost tema-reintentar" hidden>Intentar de nuevo</button>
+                </div>
+                <div class="tema-feedback" role="status" aria-live="polite" hidden>
+                  <p class="tema-feedback-titulo"></p>
+                  <p class="tema-feedback-texto"></p>
+                </div>
+                <p class="tema-explicacion" hidden>Si la copia vive en el mismo equipo, cualquier falla, robo o ataque se lleva el original y la copia al mismo tiempo.</p>
+              </div>
+            </div>
+            <footer class="tema-pie">
+              <div class="tema-enlaces"><a href="academy/negocios.html#respaldos">La regla 3-2-1 en la lección →</a></div>
+              <button type="button" class="btn btn-ghost tema-siguiente" data-siguiente>Siguiente: Buenas prácticas para empleados <span aria-hidden="true">→</span></button>
+            </footer>
+          </article>
+          <article class="tema-panel" role="tabpanel" id="neg-panel-equipo" aria-labelledby="neg-tab-equipo" tabindex="-1">
+            <header class="tema-cabecera">
+              <span class="tema-icono" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.5a5 5 0 0 1 4.5 5"/></svg></span>
+              <div>
+                <h3>Buenas prácticas para empleados</h3>
+                <p class="tema-lead">La seguridad del negocio depende de lo que hace cada persona del equipo.</p>
+              </div>
+            </header>
+            <div class="tema-cuerpo">
+              <div class="tema-info">
+                <div class="tema-situacion">
+                  <span class="tema-etiqueta">Caso realista</span>
+                  <p>Un empleado nuevo instala un programa «gratis» para editar PDF en la computadora del negocio. Traía malware que registra lo que se escribe, y la contraseña de la banca en línea termina en manos de un tercero.</p>
+                </div>
+                <h4>Cómo prevenirlo</h4>
+                <ul class="tema-checks"><li>Da una charla breve de seguridad a cada persona que se incorpora.</li><li>Escribe reglas simples: qué se puede instalar, si se usan dispositivos personales y qué hacer ante un mensaje sospechoso.</li><li>Aplica permisos mínimos: cada quien accede solo a lo que necesita para su trabajo.</li><li>Crea un canal claro para reportar problemas sin miedo a represalias: avisar pronto reduce el daño.</li><li>Practiquen con simulacros y repasen los casos juntos cada cierto tiempo.</li></ul>
+              </div>
+              <div class="tema-actividad" data-actividad>
+                <span class="tema-etiqueta">Comprueba lo aprendido</span>
+                <p class="tema-act-pregunta" id="neg-q-equipo">Una empleada recibe un correo que parece del dueño: pide comprar tarjetas de regalo «con urgencia y en secreto». ¿Qué debería hacer?</p>
+                <div class="tema-opciones" role="group" aria-labelledby="neg-q-equipo"><button type="button" class="tema-opcion" aria-pressed="false"><span class="tema-letra" aria-hidden="true">A</span><span>Comprarlas rápido para no molestar</span></button><button type="button" class="tema-opcion" data-correcta aria-pressed="false"><span class="tema-letra" aria-hidden="true">B</span><span>Confirmar con el dueño por otro canal (llamada o en persona) antes de hacer nada</span></button><button type="button" class="tema-opcion" aria-pressed="false"><span class="tema-letra" aria-hidden="true">C</span><span>Responder el correo pidiendo más datos</span></button></div>
+                <div class="tema-act-acciones">
+                  <button type="button" class="btn btn-primary tema-comprobar" disabled>Comprobar respuesta</button>
+                  <button type="button" class="btn btn-ghost tema-reintentar" hidden>Intentar de nuevo</button>
+                </div>
+                <div class="tema-feedback" role="status" aria-live="polite" hidden>
+                  <p class="tema-feedback-titulo"></p>
+                  <p class="tema-feedback-texto"></p>
+                </div>
+                <p class="tema-explicacion" hidden>Es el «fraude del jefe»: urgencia, secreto y dinero. Confirmar por otro canal lo desarma de inmediato.</p>
+              </div>
+            </div>
+            <footer class="tema-pie">
+              <div class="tema-enlaces"><a href="quiz/index.html">Pon a prueba tus conocimientos en el Cyber Quiz →</a><a href="phishing-sim/index.html">Practica en el Phishing Simulator →</a></div>
+              <button type="button" class="btn btn-ghost tema-siguiente" data-siguiente>Siguiente: Dispositivos y redes <span aria-hidden="true">→</span></button>
+            </footer>
+          </article>
+          <article class="tema-panel" role="tabpanel" id="neg-panel-redes-neg" aria-labelledby="neg-tab-redes-neg" tabindex="-1">
+            <header class="tema-cabecera">
+              <span class="tema-icono" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span>
+              <div>
+                <h3>Dispositivos y redes</h3>
+                <p class="tema-lead">Cada dispositivo conectado es una puerta: computadoras, celulares, cámaras y el punto de venta.</p>
+              </div>
+            </header>
+            <div class="tema-cuerpo">
+              <div class="tema-info">
+                <div class="tema-situacion">
+                  <span class="tema-etiqueta">Caso realista</span>
+                  <p>Una cafetería conecta su cámara de seguridad y su punto de venta a la misma red que usan los clientes, con las contraseñas de fábrica. Un cliente curioso encuentra la cámara desde su celular y ve el interior del local.</p>
+                </div>
+                <h4>Cómo prevenirlo</h4>
+                <ul class="tema-checks"><li>Cambia las contraseñas de fábrica de cámaras, impresoras, punto de venta y router.</li><li>Mantén actualizado el software de cada equipo, incluidos los «inteligentes».</li><li>Separa los equipos del negocio de la red de los clientes.</li><li>Haz un inventario sencillo de qué dispositivos tienes y quién los usa.</li><li>No dejes equipos accesibles desde internet si no es indispensable.</li></ul>
+              </div>
+              <div class="tema-actividad" data-actividad>
+                <span class="tema-etiqueta">Comprueba lo aprendido</span>
+                <p class="tema-act-pregunta" id="neg-q-redes-neg">Tu cámara de seguridad y el punto de venta están conectados a la red del negocio. ¿Qué haces con ellos?</p>
+                <div class="tema-opciones" role="group" aria-labelledby="neg-q-redes-neg"><button type="button" class="tema-opcion" aria-pressed="false"><span class="tema-letra" aria-hidden="true">A</span><span>Nada: vienen seguros de fábrica</span></button><button type="button" class="tema-opcion" data-correcta aria-pressed="false"><span class="tema-letra" aria-hidden="true">B</span><span>Cambias las contraseñas de fábrica, actualizas su software y los separas de la red de invitados</span></button><button type="button" class="tema-opcion" aria-pressed="false"><span class="tema-letra" aria-hidden="true">C</span><span>Los dejas accesibles desde internet para verlos desde cualquier sitio</span></button></div>
+                <div class="tema-act-acciones">
+                  <button type="button" class="btn btn-primary tema-comprobar" disabled>Comprobar respuesta</button>
+                  <button type="button" class="btn btn-ghost tema-reintentar" hidden>Intentar de nuevo</button>
+                </div>
+                <div class="tema-feedback" role="status" aria-live="polite" hidden>
+                  <p class="tema-feedback-titulo"></p>
+                  <p class="tema-feedback-texto"></p>
+                </div>
+                <p class="tema-explicacion" hidden>Las contraseñas de fábrica son públicas y los equipos sin actualizar tienen fallos conocidos. Separarlos de la red de invitados limita el daño.</p>
+              </div>
+            </div>
+            <footer class="tema-pie">
+              <div class="tema-enlaces"><a href="academy/negocios.html#red">Proteger la red y el Wi-Fi →</a><a href="academy/negocios.html#dispositivos">Proteger los dispositivos →</a></div>
+              <button type="button" class="btn btn-ghost tema-siguiente" data-siguiente>Volver al primero: Datos de clientes <span aria-hidden="true">→</span></button>
+            </footer>
+          </article>
+          </div>
         </div>
       </div>
     </section>
@@ -152,6 +743,14 @@
             <p>Pon a prueba lo que aprendiste: 10 preguntas sobre phishing, contraseñas, MFA, malware y más, con una explicación en cada respuesta.</p>
           </div>
           <a class="btn btn-primary" href="quiz/index.html">Hacer el quiz</a>
+        </div>
+
+        <div class="quiz-cta glass-card">
+          <div>
+            <h3>Phishing Simulator</h3>
+            <p>Practica en una bandeja de entrada ficticia: clasifica 8 mensajes como legítimos o sospechosos y descubre qué señales delatan un fraude.</p>
+          </div>
+          <a class="btn btn-primary" href="phishing-sim/index.html">Probar el simulador</a>
         </div>
       </div>
     </section>

@@ -7,6 +7,7 @@
    4. Año actual en el pie de página
    5. Listas de verificación de las lecciones de Academy
    6. Animaciones al hacer scroll
+   7. Temas y actividades de las secciones Estudiantes y Negocios
    ========================================================== */
 
 // 1. Le avisa al CSS que JavaScript funciona (el menú móvil queda cerrado por defecto)
@@ -95,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const grupos = [
       [".hero-visual", "reveal-zoom"],
       [".hero h1, .hero-description, .hero .btn", ""],
-      [".section-heading, .section .glass-card", ""],
+      [".section-heading, .section .glass-card, .tema-progreso, .tema-lista", ""],
       [".lesson-hero .container > *", ""],
       [".lesson-section, .lesson-nav", ""]
     ];
@@ -128,4 +129,145 @@ document.addEventListener("DOMContentLoaded", () => {
       observadorReveal.observe(elemento);
     });
   }
+
+  // 7. Temas y actividades de Estudiantes y Negocios.
+  //    Pestañas accesibles (también con flechas del teclado) y actividades de comprobación.
+  //    Todo ocurre en la página: no se guarda ni se envía nada.
+  document.querySelectorAll("[data-temas]").forEach((zona) => {
+    const pestanas = Array.from(zona.querySelectorAll('[role="tab"]'));
+    const paneles = pestanas.map((p) => document.getElementById(p.getAttribute("aria-controls")));
+    const total = pestanas.length;
+    const textoProgreso = zona.querySelector(".tema-progreso-texto");
+    const barra = zona.querySelector(".tema-barra");
+    const botonReiniciar = zona.querySelector(".tema-reiniciar");
+
+    function seleccionar(indice, opciones) {
+      const { desplazar = false, enfocarPanel = false } = opciones || {};
+      pestanas.forEach((pestana, k) => {
+        const activa = k === indice;
+        pestana.setAttribute("aria-selected", String(activa));
+        pestana.tabIndex = activa ? 0 : -1;
+        paneles[k].classList.toggle("is-activo", activa);
+      });
+      const panel = paneles[indice];
+      if (!menosMovimiento) {
+        panel.classList.remove("tema-entra");
+        void panel.offsetWidth;                      // reinicia la animación
+        panel.classList.add("tema-entra");
+      }
+      if (enfocarPanel) panel.focus({ preventScroll: true });
+      if (desplazar) {
+        const arriba = panel.getBoundingClientRect().top;
+        if (arriba > window.innerHeight * 0.55 || arriba < 70) {
+          panel.scrollIntoView({ block: "start", behavior: menosMovimiento ? "auto" : "smooth" });
+        }
+      }
+    }
+
+    pestanas.forEach((pestana, k) => {
+      pestana.addEventListener("click", () => seleccionar(k, { desplazar: true }));
+      pestana.addEventListener("keydown", (evento) => {
+        let destino = null;
+        if (evento.key === "ArrowRight" || evento.key === "ArrowDown") destino = (k + 1) % total;
+        if (evento.key === "ArrowLeft" || evento.key === "ArrowUp") destino = (k - 1 + total) % total;
+        if (evento.key === "Home") destino = 0;
+        if (evento.key === "End") destino = total - 1;
+        if (destino === null) return;
+        evento.preventDefault();
+        seleccionar(destino);
+        pestanas[destino].focus();
+      });
+    });
+
+    paneles.forEach((panel, k) => {
+      const boton = panel.querySelector("[data-siguiente]");
+      if (boton) boton.addEventListener("click", () => seleccionar((k + 1) % total, { desplazar: true, enfocarPanel: true }));
+    });
+
+    // Progreso: cuenta las actividades comprobadas y los aciertos
+    function actualizarProgreso() {
+      const hechas = paneles.filter((p) => p.dataset.estado).length;
+      const aciertos = paneles.filter((p) => p.dataset.estado === "ok").length;
+      let texto = "Actividades completadas: " + hechas + " de " + total;
+      if (hechas > 0) texto += " · Aciertos: " + aciertos;
+      if (hechas === total) texto += " · ¡Sección completada!";
+      textoProgreso.textContent = texto;
+      barra.value = hechas;
+      botonReiniciar.hidden = hechas === 0;
+    }
+
+    function marcarPestana(indice, estado) {
+      const pestana = pestanas[indice];
+      if (estado) pestana.dataset.estado = estado; else delete pestana.dataset.estado;
+      pestana.querySelector(".tema-estado").textContent = estado === "ok" ? "✓ Correcta" : estado === "error" ? "Repasar" : "";
+    }
+
+    function reiniciarActividad(indice) {
+      const panel = paneles[indice];
+      const actividad = panel.querySelector("[data-actividad]");
+      actividad.querySelectorAll(".tema-opcion").forEach((o) => {
+        o.disabled = false;
+        o.setAttribute("aria-pressed", "false");
+        o.classList.remove("is-correcta", "is-incorrecta");
+      });
+      actividad.querySelector(".tema-comprobar").hidden = false;
+      actividad.querySelector(".tema-comprobar").disabled = true;
+      actividad.querySelector(".tema-reintentar").hidden = true;
+      actividad.querySelector(".tema-feedback").hidden = true;
+      delete panel.dataset.estado;
+      marcarPestana(indice, null);
+    }
+
+    paneles.forEach((panel, k) => {
+      const actividad = panel.querySelector("[data-actividad]");
+      const opciones = Array.from(actividad.querySelectorAll(".tema-opcion"));
+      const comprobar = actividad.querySelector(".tema-comprobar");
+      const reintentar = actividad.querySelector(".tema-reintentar");
+      const feedback = actividad.querySelector(".tema-feedback");
+
+      opciones.forEach((opcion) => {
+        opcion.addEventListener("click", () => {
+          if (opcion.disabled) return;
+          opciones.forEach((o) => o.setAttribute("aria-pressed", String(o === opcion)));
+          comprobar.disabled = false;
+        });
+      });
+
+      comprobar.addEventListener("click", () => {
+        const elegida = opciones.find((o) => o.getAttribute("aria-pressed") === "true");
+        if (!elegida) return;
+        const acierto = elegida.hasAttribute("data-correcta");
+        opciones.forEach((o) => {
+          o.disabled = true;
+          if (o.hasAttribute("data-correcta")) o.classList.add("is-correcta");
+          else if (o === elegida) o.classList.add("is-incorrecta");
+        });
+        feedback.className = "tema-feedback " + (acierto ? "ok" : "error");
+        feedback.querySelector(".tema-feedback-titulo").textContent = acierto
+          ? "✓ ¡Correcto!"
+          : "✗ No es la mejor opción. La respuesta correcta está resaltada.";
+        feedback.querySelector(".tema-feedback-texto").textContent = actividad.querySelector(".tema-explicacion").textContent;
+        feedback.hidden = false;
+        comprobar.hidden = true;
+        reintentar.hidden = false;
+        panel.dataset.estado = acierto ? "ok" : "error";
+        marcarPestana(k, acierto ? "ok" : "error");
+        actualizarProgreso();
+      });
+
+      reintentar.addEventListener("click", () => {
+        reiniciarActividad(k);
+        actualizarProgreso();
+        opciones[0].focus();
+      });
+    });
+
+    botonReiniciar.addEventListener("click", () => {
+      paneles.forEach((_, k) => reiniciarActividad(k));
+      actualizarProgreso();
+      seleccionar(0, { desplazar: true });
+    });
+
+    actualizarProgreso();
+  });
 });

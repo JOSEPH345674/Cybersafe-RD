@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none';">
+  <title>Phishing Simulator | CyberSafe RD</title>
+  <meta name="description" content="Practica en una bandeja de entrada ficticia: clasifica mensajes como legítimos o sospechosos y aprende a detectar el phishing.">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="simulator.css">
+</head>
+<body>
+
+  <!-- ============ BARRA DE NAVEGACIÓN ============ -->
+  <header class="site-header">
+    <nav class="navbar" aria-label="Navegación principal">
+      <a class="brand" href="../index.html#inicio" aria-label="CyberSafe RD, ir al inicio">
+        <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3Z" fill="currentColor"/>
+        </svg>
+        <span>CyberSafe <strong>RD</strong></span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu-principal">
+        <span class="visually-hidden">Abrir o cerrar el menú</span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+
+      <ul class="nav-links" id="menu-principal">
+        <li><a href="../index.html#inicio">Inicio</a></li>
+        <li><a href="../index.html#estudiantes">Estudiantes</a></li>
+        <li><a href="../index.html#negocios">Negocios</a></li>
+        <li><a href="../index.html#academy" aria-current="page">Academy</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ============ ENCABEZADO ============ -->
+    <section class="lesson-hero">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Ruta de navegación">
+          <a href="../index.html#academy">Academy</a> <span aria-hidden="true">›</span> <span>Phishing Simulator</span>
+        </nav>
+        <h1>Phishing Simulator</h1>
+        <p class="lesson-intro">Revisa una bandeja de entrada ficticia y decide si cada mensaje es legítimo o sospechoso. Después de cada decisión verás qué señales lo delataban.</p>
+        <ul class="lesson-meta" aria-label="Datos de la simulación">
+          <li class="chip"><span data-sim-total>8</span> mensajes</li>
+          <li class="chip">Todo ficticio</li>
+          <li class="chip">No se abre ningún enlace</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="container sim-wrap" id="sim-zona">
+
+      <!-- ============ PANTALLA 1: INSTRUCCIONES ============ -->
+      <div class="sim-pantalla sim-panel glass-card" id="sim-intro">
+        <h2>Entrena tu ojo contra el phishing</h2>
+        <p>Vas a recibir <span data-sim-total>8</span> mensajes de ejemplo: correos, SMS y avisos de servicios. Algunos son legítimos y otros son fraudes.</p>
+        <ol class="sim-pasos">
+          <li><strong>Abre un mensaje</strong> y léelo con calma. Toca los enlaces para ver a dónde llevarían realmente.</li>
+          <li><strong>Decide</strong> si es legítimo o sospechoso (phishing).</li>
+          <li><strong>Aprende:</strong> verás si acertaste y qué señales de alerta, o qué elementos de legitimidad, tenía el mensaje.</li>
+          <li><strong>Al terminar</strong> recibirás una puntuación sobre 100 y recomendaciones según tus errores.</li>
+        </ol>
+        <p class="sim-aviso">Todo es ficticio y seguro: los mensajes usan dominios de ejemplo (<code>.example</code>), no se envía ni se abre nada real, no se piden datos ni contraseñas, y no se guarda ninguna información.</p>
+        <button class="btn btn-primary" type="button" id="sim-comenzar">Comenzar simulación</button>
+      </div>
+
+      <!-- ============ PANTALLA 2: BANDEJA DE ENTRADA ============ -->
+      <div class="sim-app sim-panel glass-card" id="sim-app" data-vista="lista" hidden>
+        <div class="sim-barra">
+          <div class="sim-barra-fila">
+            <h2 class="sim-titulo">Bandeja de entrada</h2>
+            <button class="btn btn-primary sim-btn-resultados" type="button" id="sim-ver-resultados" disabled>Ver resultados</button>
+          </div>
+          <div class="sim-barra-fila">
+            <span class="sim-contador" id="sim-contador">Clasificados: 0 de 8</span>
+          </div>
+          <progress class="sim-progress" id="sim-progreso" max="8" value="0" aria-label="Mensajes clasificados"></progress>
+        </div>
+
+        <div class="sim-cuerpo">
+          <aside class="sim-lista-panel" aria-label="Lista de mensajes">
+            <ul class="sim-lista" id="sim-lista"></ul>
+          </aside>
+
+          <section class="sim-visor" aria-label="Mensaje seleccionado">
+            <div class="sim-vacio" id="sim-vacio">
+              <p><strong>Selecciona un mensaje</strong> de la bandeja para leerlo y decidir si es legítimo o sospechoso.</p>
+            </div>
+
+            <div id="sim-visor-contenido" hidden>
+              <button class="btn btn-ghost sim-volver" type="button" id="sim-volver"><span aria-hidden="true">←</span> Bandeja de entrada</button>
+              <h3 class="sim-visor-titulo" id="sim-visor-titulo" tabindex="-1"></h3>
+              <p class="sim-contexto" id="sim-contexto"></p>
+
+              <article class="sim-mensaje" id="sim-mensaje"></article>
+
+              <div class="sim-estado" id="sim-estado" aria-live="polite"></div>
+
+              <div class="sim-decision" id="sim-decision">
+                <p class="sim-decision-titulo">¿Qué opinas de este mensaje?</p>
+                <div class="sim-decision-botones">
+                  <button class="sim-decidir" type="button" data-valor="legitimo"><span aria-hidden="true">✓</span> Es legítimo</button>
+                  <button class="sim-decidir" type="button" data-valor="phishing"><span aria-hidden="true">⚠</span> Es sospechoso (phishing)</button>
+                </div>
+              </div>
+
+              <div id="sim-feedback-zona" role="status" aria-live="polite"></div>
+
+              <div class="sim-acciones" id="sim-acciones" hidden>
+                <button class="btn btn-primary" type="button" id="sim-siguiente">Siguiente mensaje</button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- ============ PANTALLA 3: RESULTADOS ============ -->
+      <div class="sim-pantalla sim-panel glass-card" id="sim-resultados" hidden>
+        <div class="sim-resultado-cabecera">
+          <div class="sim-puntaje" id="sim-puntaje" role="img" aria-label="Puntuación">
+            <div class="sim-puntaje-centro">
+              <span class="sim-puntaje-numero" id="sim-puntaje-numero">0</span>
+              <span class="sim-puntaje-total">de 100</span>
+            </div>
+          </div>
+          <div>
+            <h2 id="sim-resultado-titulo" tabindex="-1">Resultados</h2>
+            <p id="sim-resultado-texto"></p>
+          </div>
+        </div>
+
+        <div class="sim-stats">
+          <div class="sim-stat ok"><strong id="sim-stat-aciertos">0</strong><span>Aciertos</span></div>
+          <div class="sim-stat error"><strong id="sim-stat-errores">0</strong><span>Errores</span></div>
+          <div class="sim-stat"><strong id="sim-stat-phishing">0</strong><span>Phishing detectados</span></div>
+          <div class="sim-stat"><strong id="sim-stat-legitimos">0</strong><span>Legítimos reconocidos</span></div>
+        </div>
+
+        <h3 class="sim-subtitulo">Recomendaciones para ti</h3>
+        <p id="sim-recs-intro"></p>
+        <ul class="sim-recs" id="sim-recs"></ul>
+
+        <details class="sim-revision">
+          <summary>Revisar mis decisiones</summary>
+          <ol id="sim-revision-lista"></ol>
+        </details>
+
+        <div class="sim-acciones-final">
+          <button class="btn btn-primary" type="button" id="sim-repetir">Repetir simulación</button>
+          <a class="btn btn-ghost" href="../index.html#academy">Volver a Academy</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="container">
+      <nav class="lesson-nav" aria-label="Más opciones">
+        <a class="btn btn-ghost" href="../index.html#academy"><span aria-hidden="true">←</span> Volver a Academy</a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="anio-actual">2026</span> CyberSafe RD. Educación y protección digital.</p>
+    </div>
+  </footer>
+
+  <script src="simulator.js"></script>
+  <script src="../script.js"></script>
+</body>
+</html>
